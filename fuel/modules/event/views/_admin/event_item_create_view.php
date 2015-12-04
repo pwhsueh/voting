@@ -83,6 +83,8 @@
 
                                 </div>
 
+                                <input type="hidden" value="<?php echo $value->id; ?>" name="id_<?php echo $i; ?>" />       
+                              
                            
 
                             <div class="next_step">預覽前端頁面</div>
@@ -147,6 +149,7 @@
                         </div>
 
                    
+                    <input type="hidden" value="" name="id_1" />    
 
                     <div class="next_step">預覽前端頁面</div>
 

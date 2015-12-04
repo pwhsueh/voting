@@ -5,39 +5,42 @@
                 if ($i == 7 || $i == 15 || $i == 16 || $i == 17 || $i == 18 || $i == 19 || $i == 25 || $i == 26 || $i == 27 || $i == 28 || $i == 29 || $i == 30 || $i == 31 || $i == 36 || $i == 37 || $i == 38 || $i == 39 || $i == 40 || $i == 41 || $i == 42 || $i == 48 || $i == 49 || $i == 50 || $i == 51 || $i == 52 || $i == 61 || $i == 62 || $i == 63) {
                     echo "<div class='wall'><img src='$url/assets/include/image/banner/img00.jpg'></div>";
                 } else {
-                    if (sizeof($event_items)>0) {
-                        
+                    if (sizeof($rand_event_items)>0) {
+                         $k = $i % sizeof($rand_event_items);
+                         $item = $rand_event_items[$k];
+                         // print_r($rand_event_items);
+                         echo "<div class='wall'><img class='sc' src='$url/assets/$item->photo_path'></div>";
+                        // switch ($k) {
+                        //     case 0: 
+                        //         echo "<div class='wall'><img class='sc' src='$url/assets/$rand_event_items[0]->photo_path'></div>";
+                        //         break;
+                        //     case 1:
+                        //         echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/2.jpg'></div>";
+                        //         break;
+                        //     case 2:
+                        //         echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/3.jpg'></div>";
+                        //         break;
+                        //     case 3:
+                        //         echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/4.jpg'></div>";
+                        //         break;
+                        //     case 4:
+                        //         echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/5.jpg'></div>";
+                        //         break;
+                        //     case 5:
+                        //         echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/6.jpg'></div>";
+                        //         break;
+                        //     case 6:
+                        //         echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/7.jpg'></div>";
+                        //         break;
+                        //     case 7:
+                        //         echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/8.jpg'></div>";
+                        //         break;
+                        //     case 8:
+                        //         echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/9.jpg'></div>";
+                        //         break;
+                        // }
                     }
-                    $k = $i % 9;
-                    switch ($k) {
-                        case 0: 
-                            echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/1.jpg'></div>";
-                            break;
-                        case 1:
-                            echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/2.jpg'></div>";
-                            break;
-                        case 2:
-                            echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/3.jpg'></div>";
-                            break;
-                        case 3:
-                            echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/4.jpg'></div>";
-                            break;
-                        case 4:
-                            echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/5.jpg'></div>";
-                            break;
-                        case 5:
-                            echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/6.jpg'></div>";
-                            break;
-                        case 6:
-                            echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/7.jpg'></div>";
-                            break;
-                        case 7:
-                            echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/8.jpg'></div>";
-                            break;
-                        case 8:
-                            echo "<div class='wall'><img class='sc' src='$url/assets/include/image/banner/9.jpg'></div>";
-                            break;
-                    }
+                   
                 }
             }
             ?>

@@ -310,6 +310,7 @@ class Event_manage extends Fuel_base_controller {
 		// die;
 
 		for ($i=1; $i <= $total ; $i++) { 
+			$id = $post_arr['id_'.$i];
 			$sort_order = $post_arr['sortOrder_'.$i];
 			$title = $post_arr['title_'.$i];
 			$sub_title = '';
@@ -346,7 +347,7 @@ class Event_manage extends Fuel_base_controller {
 		// 	print_r($event_id.','.$sort_order.','.$title.','.$sub_title.','.$photo_path.','.$placeholder);
 		// die;
 
-			$this->event_manage_model->insert_item($event_id,$sort_order,$title,$sub_title,$photo_path,$placeholder);		
+			$this->event_manage_model->insert_item($id,$event_id,$sort_order,$title,$sub_title,$photo_path,$placeholder);		
 
 		} 
 

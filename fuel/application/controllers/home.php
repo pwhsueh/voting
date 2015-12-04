@@ -113,10 +113,12 @@ class Home extends CI_Controller {
 
 		$event = $this->events_model->get_event_by_id($event_id);
 		$event_items = $this->events_model->get_event_items_by_id($event_id);
+		$rand_event_items = $this->events_model->get_random_event_items_by_id($event_id);
  
 
 		$vars['event'] = $event;
 		$vars['event_items'] = $event_items; 
+		$vars['rand_event_items'] = $rand_event_items; 
 		$vars['do_action_url'] = base_url()."home/do_action";
 
 		// $seo_data = $this->code_model->get_seo_default();

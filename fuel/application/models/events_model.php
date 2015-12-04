@@ -35,6 +35,21 @@ class Events_model extends CI_Model {
         }
     } 
 
+    public function get_random_event_items_by_id($event_id,$count=10){
+        $sql = @"SELECT * FROM voting.mod_event_items where event_id =? ORDER BY RAND() LIMIT $count";
+        $para = array(
+                    $event_id
+                );
+        $query = $this->db->query($sql,$para);
+        //echo $sql;exit;
+        if($query->num_rows() > 0)
+        {
+            $result = $query->result();
+
+            return $result;
+        }
+    } 
+
     public function insert($user_id,$action_code,$item_id){
         $exits = $this->get_action($user_id,$action_code,$item_id);
         if (!$exits) {
