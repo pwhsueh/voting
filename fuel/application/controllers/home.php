@@ -150,8 +150,15 @@ class Home extends CI_Controller {
 	 		$item_id = $post_arr['item_id'];
 	 		$action_code = $post_arr['action_code'];
 			$user_id = 7;//TODO:先寫死
-			$sucesss = $this->events_model->insert($user_id,$action_code,$item_id);
-			$result['exists'] = $sucesss?'N':'Y'; 
+			$can_vote = $this->events_model->user_can_vote($user_id,$item_id);
+			if ($can_vote) {
+				$sucesss = $this->events_model->insert($user_id,$action_code,$item_id);
+				$result['exists'] = $sucesss?'N':'Y'; 
+				$result['limit_of_vote'] = 'N'; 
+			}else{
+				$result['limit_of_vote'] = 'Y'; 
+				$result['exists'] = 'Y';
+			}
 			$result['status'] = 1; 
 			echo json_encode($result);
 		}

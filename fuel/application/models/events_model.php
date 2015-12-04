@@ -68,6 +68,42 @@ class Events_model extends CI_Model {
         return false;
     }
 
+    public function user_can_vote($user_id,$item_id){
+        $sql = @"select IFNULL(c.max_item,0) as max_item ,count(c.id) as now_vote from mod_items_actions a 
+                left join mod_event_items b on a.item_id = b.id  
+                left join mod_events c on b.event_id = c.id
+                where a.user_id = ? and a.action = 'V' and b.id = ?
+                group by a.user_id,c.id ";
+        $para = array(
+                $user_id,
+                $item_id
+            );
+        $query = $this->db->query($sql,$para);
+        //echo $sql;exit;
+        if($query->num_rows() > 0)
+        { 
+            return $query->row()->max_item >= $query->row()->now_vote;
+        }else{
+            return true;
+        }
+    } 
+
+    public function get_event_max_item($item_id){
+        $sql = @"select b.max_item from mod_event_items a left join mod_events b on a.event_id = b.id  
+                 where a.id = ? ";
+        $para = array(
+                $item_id
+            );
+        $query = $this->db->query($sql,$para);
+        //echo $sql;exit;
+        if($query->num_rows() > 0)
+        { 
+            return $query->row()->max_item;
+        }else{
+            return 0;
+        }
+    } 
+
      public function get_action($user_id,$action_code,$item_id){
         $sql = @"select * from mod_items_actions where user_id = ? AND action = ? AND item_id = ?";
         $para = array(
