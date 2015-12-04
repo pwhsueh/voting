@@ -116,7 +116,8 @@ class Home extends CI_Controller {
  
 
 		$vars['event'] = $event;
-		$vars['event_items'] = $event_items;
+		$vars['event_items'] = $event_items; 
+		$vars['do_action_url'] = base_url()."home/do_action";
 
 		// $seo_data = $this->code_model->get_seo_default();
 		
@@ -139,12 +140,16 @@ class Home extends CI_Controller {
 		$this->fuel->pages->render("event_photo", $vars);
 	}
 
-	function user_action($action_code,$item_id)//action_code:(L,S,V)
+	function do_action()//action_code:(L,S,V)
 	{	 
 	 	if(is_ajax())
 		{ 
-			$user_id = 1;//TODO:先寫死
-			$exists = $this->events_model->insert($user_id,$action_code,$item_id);
+			$post_arr = $this->input->post();
+	 		$item_id = $post_arr['item_id'];
+	 		$action_code = $post_arr['action_code'];
+			$user_id = 7;//TODO:先寫死
+			$sucesss = $this->events_model->insert($user_id,$action_code,$item_id);
+			$result['exists'] = $sucesss?'N':'Y'; 
 			$result['status'] = 1; 
 			echo json_encode($result);
 		}

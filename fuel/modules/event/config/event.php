@@ -38,6 +38,16 @@ $config['event_ck_javascript'] = array(
 	site_url().'assets/admin_js/ckfinder/ckfinder.js'
 );
 
+$config['event_list_css'] = array(
+	site_url().'assets/admin_css/bootstrap.min.css',
+	site_url().'assets/admin_css/style.css',
+	site_url().'assets/admin_css/style-responsive.css',
+	site_url().'assets/admin_css/bootstrap-datetimepicker/css/datetimepicker.css',
+	site_url().'assets/admin_css/jquery.timepicker.min.css'
+	
+	// site_url().'assets/admin_css/font-awesome/css/font-awesome.css'
+	// site_url().'assets/admin_css/datepicker.css'
+);
 
 $config['event_css'] = array(
 	// site_url().'assets/admin_css/bootstrap.min.css',
@@ -53,11 +63,14 @@ $config['event_css'] = array(
 );
 
 $config['event_item_css'] = array(
-	site_url().'assets/admin_Include/js/CustomFileInputs/css/normalize.css',
-	site_url().'assets/admin_Include/js/CustomFileInputs/css/demo.css',
-	site_url().'assets/admin_Include/js/CustomFileInputs/css/component.css',
 	site_url().'assets/admin_Include/css/main.css',
 	site_url().'assets/admin_Include/css/style2.css'
+);
+
+$config['event_upload_css'] = array(
+	site_url().'assets/admin_Include/js/CustomFileInputs/css/normalize.css',
+	site_url().'assets/admin_Include/js/CustomFileInputs/css/demo.css',
+	site_url().'assets/admin_Include/js/CustomFileInputs/css/component.css'
 );
 
 

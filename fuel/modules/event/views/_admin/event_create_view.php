@@ -1,4 +1,5 @@
 <?php echo css($this->config->item('event_css'), 'event')?> 
+<?php echo css($this->config->item('event_upload_css'), 'event')?> 
 
  
 		    <div class="main_width">
@@ -41,13 +42,13 @@
 
                             <div class="edit_content">
 
-                                <div class="edit_checkbox"><input type="checkbox" id="checkbox-1-1" class="regular-checkbox" /><label for="checkbox-1-1"></label></div>
+                                <div class="edit_checkbox"><input name="allow_email" value="1" type="checkbox" id="checkbox-1-1" class="regular-checkbox" /><label for="checkbox-1-1"></label></div>
 
                                 <div class="edit_check_text">允許前端使用者，透過E-Mail登入</div><br>
 
-                                <div class="edit_checkbox"><input type="checkbox" id="checkbox-1-2" class="regular-checkbox" /><label for="checkbox-1-2"></label></div>
+                                <div class="edit_checkbox"><input name="allow_fb" value="1" type="checkbox" id="checkbox-1-2" class="regular-checkbox" /><label for="checkbox-1-2"></label></div>
 
-                                <div class="edit_check_text">允許前端使用者，透過E-Mail登入</div>
+                                <div class="edit_check_text">允許前端使用者，透過Facebook登入</div>
 
                             </div>
 
@@ -59,7 +60,7 @@
 
                             <div class="edit_content">
 
-                                <div class="edit_checkbox"><input name="can_vote"  type="checkbox" id="checkbox-2-1" class="regular-checkbox" /><label for="checkbox-2-1"></label></div>
+                                <div class="edit_checkbox"><input name="can_vote" value="1"  type="checkbox" id="checkbox-2-1" class="regular-checkbox" /><label for="checkbox-2-1"></label></div>
 
                                 <div class="edit_check_text">投票</div>
 
@@ -73,17 +74,30 @@
 
                                 <div class="edit_check_text">否</div><br>
 
-                                <div class="edit_checkbox"><input type="checkbox"  name="can_like" id="checkbox-2-2" class="regular-checkbox" /><label for="checkbox-2-2"></label></div>
+                                <div class="edit_checkbox"><input type="checkbox" value="1" name="can_like" id="checkbox-2-2" class="regular-checkbox" /><label for="checkbox-2-2"></label></div>
 
                                 <div class="edit_check_text">按讚</div><br>
 
-                                <div class="edit_checkbox"><input type="checkbox"  name="can_share" id="checkbox-2-3" class="regular-checkbox" /><label for="checkbox-2-3"></label></div>
+                                <div class="edit_checkbox"><input type="checkbox" value="1" name="can_share" id="checkbox-2-3" class="regular-checkbox" /><label for="checkbox-2-3"></label></div>
 
                                 <div class="edit_check_text">分享</div>
 
                             </div>
 
                         </div>
+
+						<div class="edit_block">
+
+                            <div class="edit_title">圖片上傳</div>
+
+                            <input type="file" id="file" name="file" class="inputfile inputfile-6"//>
+
+                            <label for="file"><span></span><strong><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></strong></label>
+
+                            <!-- <div class="file_desc">圖片規格：600 x 600</div> -->
+
+                        </div>
+
                         <input type="hidden" name="type" value="P" /><!-- 圖文版 -->
                         <div class="next_step" id="submit">下一步</div>
 
@@ -100,7 +114,7 @@
  
 
 <?php echo js($this->config->item('event_javascript'), 'event')?>
-<?php echo js($this->config->item('event_ck_javascript'), 'event')?>
+<?php echo js($this->config->item('event_item_javascript'), 'event')?>
  
 <script>
 	var $j = jQuery.noConflict(true);
@@ -114,117 +128,10 @@
 		$j("#submit").click(function(event) {
 			$j("#form").submit();
 		});
-
-		$j("#train_time_s").timepicker({
-		    timeFormat: 'H:mm'
-		});
-
-		$('#train_time_e').timepicker({
-			timeFormat: 'H:mm' 
-		}); 
-
-		$j("#notify_date").datetimepicker({
-		    format: "yyyy-mm-dd",
-		    autoclose: true
-		}).on('changeDate', function(ev){
-			console.log(ev);
-		}); 
+ 
 
 		$j("form").submit(function(event) {
-			$(".msg").remove();
-
-
-			
-			if($j("#train_title").val() == "")
-			{
-				$j("#train_title").parent().after("<div class='col-sm-2 msg'><span style='color:red;'>必填</span></div>");
-
-				return false;
-			}
-
-			if($j("#train_price").val() == "")
-			{
-				$j("#train_price").parents('.col-sm-4').after("<div class='col-sm-2 msg'><span style='color:red;'>必填</span></div>");
-
-				return false;
-			}
-			// console.log($j("#train_detail").val());
-			// if($j("#train_detail").val() == "")
-			// {
-			// 	$j("#train_detail").parents('.col-sm-4').after("<div class='col-sm-2 msg'><span style='color:red;'>必填</span></div>");
-
-			// 	return false;
-			// }
-
-			if($j("#train_place").val() == "")
-			{
-				$j("#train_place").parents('.col-sm-4').after("<div class='col-sm-2 msg'><span style='color:red;'>必填</span></div>");
-
-				return false;
-			}
-
-			if($j("#train_place_s").val() == "")
-			{
-				$j("#train_place_s").parents('.col-sm-4').after("<div class='col-sm-2 msg'><span style='color:red;'>必填</span></div>");
-
-				return false;
-			}
-
-			if($j("#train_days").val() == "")
-			{
-				$j("#train_days").parents('.col-sm-4').after("<div class='col-sm-2 msg'><span style='color:red;'>必填</span></div>");
-
-				return false;
-			}
-
-			if($j("#train_time_s").val() == "")
-			{
-				$j("#train_time_s").parents('.col-sm-4').after("<div class='col-sm-2 msg'><span style='color:red;'>必填</span></div>");
-
-				return false;
-			}	
-
-			if($j("#train_time_e").val() == "")
-			{
-				$j("#train_time_e").parents('.col-sm-4').after("<div class='col-sm-2 msg'><span style='color:red;'>必填</span></div>");
-
-				return false;
-			}	
-
-			if($j("#train_hours").val() == "")
-			{
-				$j("#train_hours").parents('.col-sm-4').after("<div class='col-sm-2 msg'><span style='color:red;'>必填</span></div>");
-
-				return false;
-			}	
-
-			if($j("#qualify").val() == "")
-			{
-				$j("#qualify").parents('.col-sm-4').after("<div class='col-sm-2 msg'><span style='color:red;'>必填</span></div>");
-
-				return false;
-			}	
-
-			if($j("#waiting_list").val() == "")
-			{
-				$j("#waiting_list").parents('.col-sm-4').after("<div class='col-sm-2 msg'><span style='color:red;'>必填</span></div>");
-
-				return false;
-			}	
-
-			if($j("#host_unit").val() == "")
-			{
-				$j("#host_unit").parents('.col-sm-4').after("<div class='col-sm-2 msg'><span style='color:red;'>必填</span></div>");
-
-				return false;
-			}	
-
-			if($j("#coll_unit").val() == "")
-			{
-				$j("#coll_unit").parents('.col-sm-4').after("<div class='col-sm-2 msg'><span style='color:red;'>必填</span></div>");
-
-				return false;
-			}		
+			 
 		});
 		 
 	});

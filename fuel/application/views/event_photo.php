@@ -157,8 +157,7 @@
                             <div class="work_share"><span class="fa fa-share"></span>&nbsp;<span class="work_vote_num">12</span></div>
                         </div>
 
-                    </div> -->
-
+                    </div> --> 
                     <?php if (isset($event_items)): ?>
                         <?php foreach ($event_items as $key => $value): ?>
                         <div class="vote_block">
@@ -166,9 +165,30 @@
                             <div class="work_title"><?php echo $value->title ?></div>
                             <div class="work_name"><?php echo $value->sub_title ?></div>
                             <div class="work_type">
-                                <div class="work_vote"><span class="fa fa-heart"></span>&nbsp;<span class="work_vote_num"><?php echo $value->vote ?></span></div>
-                                <div class="work_like"><span class="fa fa-thumbs-up"></span>&nbsp;<span class="work_vote_num"><?php echo $value->like ?></span></div>
-                                <div class="work_share"><span class="fa fa-share"></span>&nbsp;<span class="work_vote_num"><?php echo $value->share ?></span></div>
+                                <?php if ($event->can_vote == 1): ?>
+                                    <div class="work_vote" data-action="V" data-itemid="<?php echo $value->id ?>">
+                                        <span class="fa fa-heart"></span>&nbsp;
+                                        <?php if ($event->show_frontend == 1): ?>
+                                        <span class="work_vote_num"><?php echo $value->vote ?></span>
+                                        <?php endif ?>
+                                    </div>
+                                <?php endif ?>
+                                <?php if ($event->can_like == 1): ?>
+                                    <div class="work_like" data-action="L" data-itemid="<?php echo $value->id ?>">
+                                        <span class="fa fa-thumbs-up"></span>&nbsp;
+                                        <?php if ($event->show_frontend == 1): ?>
+                                        <span class="work_vote_num"><?php echo $value->like ?></span>
+                                        <?php endif ?>
+                                    </div>
+                                <?php endif ?>
+                                <?php if ($event->can_share == 1): ?>
+                                    <div class="work_share" data-action="S" data-itemid="<?php echo $value->id ?>">
+                                        <span class="fa fa-share"></span>&nbsp;
+                                        <?php if ($event->show_frontend == 1): ?>
+                                        <span class="work_vote_num"><?php echo $value->share ?></span>
+                                        <?php endif ?>
+                                    </div>
+                                <?php endif ?>
                             </div>
                         </div>                            
                         <?php endforeach ?>
@@ -194,7 +214,43 @@
         <div id="foot"></div>
 
         <script>
-   
+
+   function do_action(item_id,action_code){
+
+        var url = '<?php echo $do_action_url ?>';
+
+        var postData = {//"plan_id": $("#plan_id").val(),
+            "item_id": item_id,
+            "action_code": action_code
+        };
+
+        console.log(postData);
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: postData,
+            success: function(data)
+            {
+                // console.log(data);
+                if (data.status == 1)
+                {
+                    // $("#MerchantID").val(data.merchant_id);
+                    // $("#XMLData").val(data.encode_data);
+                    // $("#payment_form").attr('action', data.gateway);
+                    // $("#payment_form").submit();
+                    // alert('送出成功！！');
+                    // location.href = '<?php echo site_url() ?>home/contactus';
+                }
+                else
+                {
+              
+                    // alert(data.msg);
+                }
+            }
+        });
+   }
 
     $(function () {
         
@@ -212,8 +268,53 @@
             $("#banner_mobile").hide();
         }
         $(".work_vote, .work_like, .work_share").click(function () {
-            var href = "login.php";
-            window.location.href = href;
+            // var href = "login.php";
+            // window.location.href = href;
+            // console.log($(this).data('itemid'));
+            // console.log($(this).data('action'));
+            // do_action($(this).data('itemid'),$(this).data('action'));
+
+            var postData = {//"plan_id": $("#plan_id").val(),
+                "item_id": $(this).data('itemid'),
+                "action_code": $(this).data('action')
+            };
+
+            // console.log(postData);
+
+            var span = $(this).find("span:last-child");
+                    
+
+            $.ajax({
+                url: '<?php echo $do_action_url ?>',
+                type: 'POST',
+                dataType: 'json',
+                data: postData,
+                success: function(data)
+                {
+                    console.log(data);
+                    if (data.status == 1)
+                    {
+                         <?php if ($event->show_frontend == 1): ?>
+                        if(data.exists == "N")
+                        {
+                            var num = parseInt(span.text()); 
+                            span.text(num+1);
+                        }
+                        <?php endif ?>
+                        // $("#MerchantID").val(data.merchant_id);
+                        // $("#XMLData").val(data.encode_data);
+                        // $("#payment_form").attr('action', data.gateway);
+                        // $("#payment_form").submit();
+                        // alert('送出成功！！');
+                        // location.href = '<?php echo site_url() ?>home/contactus';
+                    }
+                    else
+                    {
+                  
+                        // alert(data.msg);
+                    }
+                }
+            });
         });
 
         var $container = $('#vote_main');
@@ -259,6 +360,11 @@
         $('.wall').each(function () {
             $(this).addClass('r' + Math.floor(Math.random() * 8 + 1));
         });
+
+        // $(".fa-heart").click(function(event) {
+        //      Act on the event 
+        //     console.log($(this).data('itemId'));
+        // });
 
     });
     $(window).load(function () {

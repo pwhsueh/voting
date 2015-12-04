@@ -1,4 +1,4 @@
-<?php echo css($this->config->item('event_css'), 'event')?>
+<?php echo css($this->config->item('event_list_css'), 'event')?>
 <style>
 	.DateStart{color: #4679bd;}
 	.DateEnd{color: #d9534f;}
@@ -73,12 +73,12 @@
 								<input type="checkbox" id="select-all"/>
 							</label>
 						</th>
-						<th style="width:380px">名稱</th>
-						<th style="width:80px">排序</th>
-						<th style="width:150px">版型</th>
-						<th style="width:50px">擁有者</th>
-						<th style="width:50px">最後修改日期</th>
-						<th style="width:50px">刪除</th>
+						<th style="width:55%">名稱</th>
+						<th style="width:5%">排序</th>
+						<th style="width:10%">版型</th>
+						<th style="width:10%">擁有者</th>
+						<th style="width:10%">最後修改日期</th>
+						<th style="width:10%">刪除</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -97,19 +97,16 @@
 						<td style="width:10%">
 							<p class="EventTitle">
 								<a href="<?php echo $edit_url.$row->id?>" title="<?php echo $row->title?>">
-									<?php echo $row->train_title?>
+									<?php echo $row->title?>
 								</a>
 							</p>
 						</td>
 						<td>
-							<?php echo $row->title ?>
+							<input type="text" class="sort_order" style="width:50px" data-id="<?php echo $row->id ?>" 
+							value="<?php echo $row->sort_order?>" />
 						</td>
 						<td>
-							<input type="text" class="sort_order" style="width:50px" data-id="<?php echo $rows->id ?>" 
-							value="<?php echo $rows->sort_order?>" />
-						</td>
-						<td>
-							<?php if ($rows->type == 'P'): ?>
+							<?php if ($row->type == 'P'): ?>
 							圖片版	
 							<?php else: ?>
 							文字版
@@ -141,6 +138,8 @@
 				</tobdy>
 			</table>
 		</section>
+
+
 	</div>
 	<div style="text-align:center">
 	  <ul class="pagination">

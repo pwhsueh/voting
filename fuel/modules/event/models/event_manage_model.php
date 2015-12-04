@@ -40,89 +40,7 @@ class Event_manage_model extends MY_Model {
 
 		return;
 	}
-
-	public function get_reg_total_rows($filter="")
-	{
-		$sql = @"SELECT COUNT(*) AS total_rows FROM mod_register $filter ";
-		$query = $this->db->query($sql);
-
-		if($query->num_rows() > 0)
-		{
-			$row = $query->row();
-
-			return $row->total_rows;
-		}
-
-		return 0;
-	}
-
-	public function get_reg_list($dataStart, $dataLen, $filter)
-	{
-		$sql = @"SELECT *  FROM mod_register $filter ORDER BY train_date,modi_date DESC LIMIT $dataStart, $dataLen";
-	
-		$query = $this->db->query($sql);
-
-		if($query->num_rows() > 0)
-		{
-			$result = $query->result();
-
-			return $result;
-		}
-
-		return;
-	}
-
-	public function get_reg_detail($id)
-	{
-		$sql = @"SELECT *,(SELECT train_title FROM mod_train WHERE mod_train.id = mod_register.train_id ) AS train_title FROM mod_register WHERE id=?";
-		$para = array($id);
-		$query = $this->db->query($sql, $para);
-
-		if($query->num_rows() > 0)
-		{
-			$result = $query->row();
-
-			return $result;
-		}
-
-		return;
-	}
-
-	// public function get_regi_event_list($dataStart, $dataLen, $filter)
-	// {
-	// 	$sql = @"SELECT a.*,b.train_title FROM mod_register a LEFT JOIN mod_train b ON a.id = b.id $filter ORDER BY a.modi_date LIMIT $dataStart, $dataLen";
-	
-	// 	$query = $this->db->query($sql);
-
-	// 	if($query->num_rows() > 0)
-	// 	{
-	// 		$result = $query->result();
-
-	// 		return $result;
-	// 	}
-
-	// 	return;
-	// } 
-
-	// public function do_regi_event($id, $account)
-	// {
-	// 	$sql = @"INSERT INTO mod_register (
-	// 			id,
-	// 			account,
-	// 			drop_date,
-	// 			regi_type)
-	// 			VALUES(?, ?, NOW(), 0)";
-	// 	$para = array($id, $account);
-	// 	$success = $this->db->query($sql, $para);
-
-	// 	if($success)
-	// 	{
-	// 		return true;
-	// 	}
-
-	// 	return;
-	// }
-
+ 
 	public function insert($data)
 	{
 		$sort_order = $this->get_max_sort();
@@ -134,10 +52,13 @@ class Event_manage_model extends MY_Model {
 				`can_like`,
 				`can_share`,
 				`show_frontend`, 
+				`allow_email`,
+				`allow_fb`,
+				`photo`,
 				`sort_order`,
 				`create_by`,
 				`modify_date` )
-				VALUES (?,?, ?, ?, ?, ?, ? ,?,?, NOW())
+				VALUES (?,?, ?, ?, ?,?,?,?, ?, ? ,?,?, NOW())
 				";
 		$para = array(
 				$data['type'],
@@ -147,6 +68,9 @@ class Event_manage_model extends MY_Model {
 				$data['can_like'],
 				$data['can_share'],
 				$data['show_frontend'],
+				$data['allow_email'],
+				$data['allow_fb'],
+				$data['photo'],
 				$sort_order,
 				$data['create_by']
 			);
@@ -163,45 +87,29 @@ class Event_manage_model extends MY_Model {
 
 	public function modify($data, $id)
 	{
-		$sql = @"UPDATE mod_train SET is_free=?, 
-									  train_title=?, 
-									  train_detail=?, 
-									  train_price=?, 
-									  train_time_s=?, 
-									  train_time_e=?,
-									  train_date=?, 
-									  train_days=?,
-									  train_hours=?, 
-									  coll_unit=?, 
-									  train_place=?, 
-									  train_place_s=?, 
-									  `qualify`=?, 
-									  `waiting_list`=?, 
-									  host_unit=?, 
-									  file_path=?, 
-									  notify_date=?, 
-									  train_order=?,
-									  modi_date=NOW() 
+		$sql = @"UPDATE mod_events SET title=?, 
+									  max_item=?, 
+									  can_vote=?, 
+									  can_like=?, 
+									  can_share=?, 
+									  show_frontend=?,
+									  allow_email=?, 
+									  allow_fb=?,
+									  sort_order=?, 
+									  photo=?,  
+									  modify_date=NOW() 
 									  WHERE id=?";
 		$para = array(
-				$data['is_free'],
-				$data['train_title'],
-				$data['train_detail'],
-				$data['train_price'],
-				$data['train_time_s'],
-				$data['train_time_e'],
-				$data['train_date'],
-				$data['train_days'],
-				$data['train_hours'],
-				$data['coll_unit'],
-				$data['train_place'],
-				$data['train_place_s'],
-				$data['qualify'],
-				$data['waiting_list'],
-				$data['host_unit'],
-				$data['file_path'],
-				$data['notify_date'],
-				$data['train_order'],
+				$data['title'],
+				$data['max_item'],
+				$data['can_vote'],
+				$data['can_like'],
+				$data['can_share'],
+				$data['show_frontend'],
+				$data['allow_email'],
+				$data['allow_fb'],
+				$data['sort_order'],
+				$data['photo'],
 				$id
 			);
 
@@ -217,7 +125,7 @@ class Event_manage_model extends MY_Model {
 
 	public function get_event_detail($id)
 	{
-		$sql = @"SELECT * FROM mod_train WHERE id=?";
+		$sql = @"SELECT * FROM mod_events WHERE id=?";
 		$para = array($id);
 		$query = $this->db->query($sql, $para);
 
@@ -226,6 +134,20 @@ class Event_manage_model extends MY_Model {
 			$result = $query->row();
 
 			return $result;
+		}
+
+		return;
+	}
+
+	public function del_items($event_id)
+	{
+		$sql = "DELETE FROM mod_event_items WHERE event_id=?";
+		$para = array($event_id);
+		$success= $this->db->query($sql, $para);
+
+		if($success)
+		{
+			return true;
 		}
 
 		return;
