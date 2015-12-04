@@ -174,9 +174,13 @@ class Event_manage extends Fuel_base_controller {
 			die();
 		}
 
+		$event_items = $this->event_manage_model->get_event_item_list($event_id);
+
 		$vars['form_action'] = base_url().'fuel/event/do_item_create';
 		$vars['form_method'] = 'POST';
 		$vars['event'] = $event;
+		$vars['event_items'] = $event_items;
+
 		$crumbs = array($this->module_uri => $this->module_name);
 		$this->fuel->admin->set_titlebar($crumbs);		
 
@@ -264,8 +268,8 @@ class Event_manage extends Fuel_base_controller {
 		$base_url = base_url();
 		// $module_uri = base_url().$this->module_uri;
 		$post_arr = $this->input->post();	 
-		print_r($post_arr);
-		die;
+		// print_r($post_arr);
+		// die;
 
 		$event_id = $post_arr['event_id'];
 
@@ -275,7 +279,21 @@ class Event_manage extends Fuel_base_controller {
 		$user_info = $this->fuel_users_model->get_login_user_info(); 
 		$post_arr['create_by'] = $user_info['user_name'];
 
-		$root_path = assets_server_path('event/');
+		$count = 1;
+		$total = 0;
+
+		//先算出共幾個item
+		foreach ($post_arr as $key => $value) {
+			if(strpos($key,'sortOrder_'.$count)>-1){
+				$count++;
+				$total++;
+			}
+		}
+
+		// print_r($count."<br>");
+		// print_r($total."<br>");
+
+		$root_path = assets_server_path('event_item/');
 		if (!file_exists($root_path)) {
 		    mkdir($root_path, 0777, true);
 		}
@@ -288,34 +306,53 @@ class Event_manage extends Fuel_base_controller {
 
 		$this->load->library('upload',$config); 
 
-	 	// $name = 'news_img/'.$post_arr['type']."/".$post_arr['title'].".png"; 
-
-	 	foreach ($post_arr['file'] as $key => $value) {
-	 		print_r($value);
-			die;
-	 	}
-
-        if ($this->upload->do_upload('file'))
-		{			 
-			$data = array('upload_data'=>$this->upload->data()); 
-			print_r($data);
-			die;
-			$post_arr["file_path"] = 'event/'.$data["upload_data"]["file_name"];
-		 
-		} else{ 
-			$post_arr["file_path"] = '';				 
-		} 
-
-		// print_r($post_arr);
+		// print_r($_FILES);
 		// die;
 
+		for ($i=1; $i <= $total ; $i++) { 
+			$sort_order = $post_arr['sortOrder_'.$i];
+			$title = $post_arr['title_'.$i];
+			$sub_title = '';
+			foreach ($post_arr['subTitle_'.$i] as $key => $value) {
+				if (!empty($value)) {
+					$sub_title .= $value.';';
+				}
+			} 
 
-		$id = $this->event_manage_model->insert($post_arr);		
+			if (strlen($sub_title)>0) {
+				$sub_title = rtrim($sub_title,';');
+			}
 
+			$file_name = "$event_id-$sort_order";//檔名規則
+			$file_name = $file_name.substr($_FILES['file_'.$i]["name"], strpos($_FILES['file_'.$i]["name"], "."));//加上副檔名 
+			$_FILES['file_'.$i]['name'] = $file_name; //更改實體路徑檔名
 
-		$module_uri = $base_url.'fuel/event/item/'.$id;  
+		    if ($this->upload->do_upload('file_'.$i))
+			{			 
+				$data = array('upload_data'=>$this->upload->data()); 		
+				$photo_path = "event_item/".$file_name;
+			 
+			} else{ 
+				if (array_key_exists('exist_photo_path_'.$i,$post_arr)) {
+					$photo_path = $post_arr['exist_photo_path_'.$i];
+				}else{
+					$photo_path = '';
+				}				 
+			} 
+			// print_r($posz
 
-		if($id)
+			// $photo_path = '';//$post_arr['sortOrder_'.$i];
+			$placeholder = $post_arr['placeholder_'.$i];
+		// 	print_r($event_id.','.$sort_order.','.$title.','.$sub_title.','.$photo_path.','.$placeholder);
+		// die;
+
+			$this->event_manage_model->insert_item($event_id,$sort_order,$title,$sub_title,$photo_path,$placeholder);		
+
+		} 
+
+		$module_uri = $base_url.'fuel/event/item/'.$event_id;  
+
+		if($event_id)
 		{
 			$this->comm->plu_redirect($module_uri, 0, "新增成功");
 			die();

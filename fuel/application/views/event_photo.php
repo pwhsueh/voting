@@ -5,6 +5,9 @@
                 if ($i == 7 || $i == 15 || $i == 16 || $i == 17 || $i == 18 || $i == 19 || $i == 25 || $i == 26 || $i == 27 || $i == 28 || $i == 29 || $i == 30 || $i == 31 || $i == 36 || $i == 37 || $i == 38 || $i == 39 || $i == 40 || $i == 41 || $i == 42 || $i == 48 || $i == 49 || $i == 50 || $i == 51 || $i == 52 || $i == 61 || $i == 62 || $i == 63) {
                     echo "<div class='wall'><img src='$url/assets/include/image/banner/img00.jpg'></div>";
                 } else {
+                    if (sizeof($event_items)>0) {
+                        
+                    }
                     $k = $i % 9;
                     switch ($k) {
                         case 0: 
@@ -39,7 +42,8 @@
             }
             ?>
             <div class="subject">
-                <img src='<?php echo $url ?>/assets/include/image/banner/banner_min.png'>
+                <!-- <img src='<?php //echo $url ?>/assets/include/image/banner/banner_min.png'> -->
+                <img src='<?php echo $url.'assets/'.$event->photo ?>'>
             </div>
         </div>
         <div id="banner_mobile">
@@ -161,9 +165,9 @@
                     <?php if (isset($event_items)): ?>
                         <?php foreach ($event_items as $key => $value): ?>
                         <div class="vote_block">
-                            <img src="include/image/vote/9.jpg">
+                            <img src="<?php echo site_url().'assets/'.$value->photo_path ?>">
                             <div class="work_title"><?php echo $value->title ?></div>
-                            <div class="work_name"><?php echo $value->sub_title ?></div>
+                            <div class="work_name"><?php echo str_replace(';',' ',$value->sub_title) ?></div>
                             <div class="work_type">
                                 <?php if ($event->can_vote == 1): ?>
                                     <div class="work_vote" data-action="V" data-itemid="<?php echo $value->id ?>">
@@ -195,17 +199,17 @@
                     <?php endif ?>
                 </div>
                 <div class="page_main">
-                    <div id="prev" class="page_arrow fa fa-angle-left"></div>
+                   <!--  <div id="prev" class="page_arrow fa fa-angle-left"></div> -->
                     <?php
-                    for ($i = 1; $i < 11; $i++) {
-                        if ($i == 1) {
-                            echo "<div class='page page_choose'>$i</div>";
-                        } else {
-                            echo "<div class='page'>$i</div>";
-                        }
-                    }
+                    // for ($i = 1; $i < 11; $i++) {
+                    //     if ($i == 1) {
+                    //         echo "<div class='page page_choose'>$i</div>";
+                    //     } else {
+                    //         echo "<div class='page'>$i</div>";
+                    //     }
+                    // }
                     ?>
-                    <div id="next" class="page_arrow fa fa-angle-right"></div>
+                    <!-- <div id="next" class="page_arrow fa fa-angle-right"></div> -->
                 </div>
             </div>
 

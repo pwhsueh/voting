@@ -139,6 +139,54 @@ class Event_manage_model extends MY_Model {
 		return;
 	}
 
+	public function get_event_item_list($event_id)
+	{
+		$sql = @"SELECT *  FROM mod_event_items WHERE event_id=? ORDER BY sort_order";
+		$para = array(
+				$event_id
+		);
+		$query = $this->db->query($sql,$para);
+
+		if($query->num_rows() > 0)
+		{
+			$result = $query->result();
+
+			return $result;
+		}
+
+		return;
+	}
+
+	public function insert_item($event_id,$sort_order,$title,$sub_title,$photo_path,$placeholder)
+	{ 
+		$sql = @"INSERT INTO mod_event_items (
+				`event_id`, 
+				`sort_order`, 
+				`title`, 
+				`sub_title`, 
+				`photo_path`,
+				`placeholder`)
+				VALUES (?,?, ?, ?, ?,?)
+				";
+		$para = array(
+				$event_id,
+				$sort_order,
+				$title,
+				$sub_title,
+				$photo_path,
+				$placeholder
+		);
+
+		$success = $this->db->query($sql, $para);
+
+		if($success)
+		{
+			return $this->db->query("SELECT LAST_INSERT_ID() AS ID")->row()->ID;
+		}
+
+		return;
+	}
+
 	public function del_items($event_id)
 	{
 		$sql = "DELETE FROM mod_event_items WHERE event_id=?";

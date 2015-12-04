@@ -83,13 +83,13 @@
 
                                 <div class="edit_check_text">前端是否統計數字顯示</div>
 
-                                <div class="edit_checkbox"><input type="radio" name="show_frontend"  id="radio-1-1" name="radio-1-set" class="regular-radio" <?php if ($event->show_frontend == 1): ?>
+                                <div class="edit_checkbox"><input type="radio" name="show_frontend" value="1"  id="radio-1-1" name="radio-1-set" class="regular-radio" <?php if ($event->show_frontend == 1): ?>
                                 	checked
                                 <?php endif ?> /><label for="radio-1-1"></label></div>
 
                                 <div class="edit_check_text">是</div>
 
-                                <div class="edit_checkbox"><input type="radio" name="show_frontend"  id="radio-1-2" name="radio-1-set" class="regular-radio" <?php if ($event->show_frontend == 0): ?>
+                                <div class="edit_checkbox"><input type="radio" name="show_frontend" value="0" id="radio-1-2" name="radio-1-set" class="regular-radio" <?php if ($event->show_frontend == 0): ?>
                                 	checked
                                 <?php endif ?> /><label for="radio-1-2"></label></div>
 
