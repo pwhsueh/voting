@@ -93,6 +93,52 @@ class User extends CI_Controller {
         }
     }
 
+
+      public function do_fb_regi(){
+    	$this->load->helper('cookie');
+		$this->load->model('code_model');
+
+		$data = $this->code_model->get_fb_data();
+
+		//print_r($data);
+		//die();
+		$target_url = $this->input->cookie("voting_target_url");
+
+
+		if(isset($data['user_profile'])){
+
+			$this->input->set_cookie("ytalent_account","", time()-3600);
+			$mail = $data['user_profile']['id'];
+			$password = $data['user_profile']['id'];
+			$name = "";
+			$fb_email = "";
+			if(isset($data['user_profile']['name'])){
+				$name = $data['user_profile']['name'];
+			}
+			if(isset($data['user_profile']['email'])){
+				$fb_email = $data['user_profile']['email'];
+			}
+
+
+
+			$result = $this->code_model->do_register_resume($mail,$password,$name,$fb_email,$data['user_profile']['id']);
+			$this->input->set_cookie("voting_account",$mail, time()+3600);
+			$this->input->set_cookie("voting_fb_logout_url",$data['logout_url'], time()+3600);
+			if(isset($target_url) && $target_url != ""){
+				$this->comm->plu_redirect($target_url, 0, "FACEBOOK登入成功");
+			}else{
+				if($this->code_model->is_mobile()){
+					$this->comm->plu_redirect(site_url()."user/mybox", 0, "FACEBOOK登入成功");
+				}else{
+					$this->comm->plu_redirect(site_url()."user/mynews", 0, "FACEBOOK登入成功");
+				}
+			}
+
+		}else{
+			$this->comm->plu_redirect(site_url(), 0, "FACEBOOK登入失敗");
+		}
+	}
+
 	function reset_password(){
 		$account = $this->input->get_post("account");
 
