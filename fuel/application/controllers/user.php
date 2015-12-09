@@ -4,8 +4,7 @@ class User extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		define('FUELIFY', FALSE);
-		$this->load->library('set_meta');
+		define('FUELIFY', FALSE); 
 		$this->load->library('comm');
 		$this->load->model('code_model');
 	}
@@ -18,28 +17,41 @@ class User extends CI_Controller {
 
 	function index()
 	{	 
-		$this->url_checker();
-		$this->set_meta->set_meta_data();
+		$this->url_checker(); 
 		fuel_set_var('page_id', "1");
 		$all_cate = array();
 
-		$case_cate	= $this->about_case_model->get_case_cate_code();
+		$case_cate	= '';
 
-		if(isset($case_cate))
-		{
-			foreach ($case_cate as $key => $row) 
-			{
-				$sub_cate_result = $this->about_case_model->get_case_sub_cate($row->code_id);
-
-				$all_cate[$key]['parent_cate'] 		= $row;
-				$all_cate[$key]['sub_cate_result']	= $sub_cate_result;
-			}
-		}
+		 
 		$vars['views'] = 'home';
 		$vars['all_cate']	= $all_cate;
 		$vars['base_url'] = base_url();
 		$page_init = array('location' => 'home');
 		$this->fuel->pages->render('home', $vars);
+	} 
+
+	function register()
+	{	   
+		$vars['do_register_url'] = site_url()."doRegister";
+		$vars['views'] = 'register'; 
+		$page_init = array('location' => 'register');
+		$this->fuel->pages->render('register', $vars);
+	} 
+
+	function do_register()
+	{	   
+		$post_arr = $this->input->post();
+		// print_r($post_arr);
+		// die;
+		$post_arr['birthday'] = $post_arr['year'].'/'.$post_arr['month'].'/'.$post_arr['day'];
+		$member = $this->code_model->get_mod_members($post_arr['email']);
+		if ($member) {
+			$this->comm->plu_redirect(site_url()."register", 0, "帳號已存在");
+		}else{
+			$member = $this->code_model->insert_mod_members($post_arr);
+			$this->comm->plu_redirect(site_url(), 0, "註冊成功");
+		}
 	} 
 
  	function logout()
@@ -50,14 +62,21 @@ class User extends CI_Controller {
         redirect(site_url());
     }
 
+    function login()
+	{	   
+		$vars['do_login_url'] = site_url()."doLogin";
+		$vars['views'] = 'login'; 
+		$page_init = array('location' => 'login');
+		$this->fuel->pages->render('login', $vars);
+	} 
+
     function do_login()
     {
-    	$this->load->helper('cookie');
-        $this->set_meta->set_meta_data(); 
+    	$this->load->helper('cookie'); 
         
         $account = $this->input->post("login_mail");
         $password = $this->input->post("login_password");
-        $target_url = $this->input->cookie("ytalent_target_url");
+        $target_url = $this->input->cookie("voting_target_url");
 
         $is_logined = $this->code_model->is_account_logged_in($account);
        
@@ -75,15 +94,9 @@ class User extends CI_Controller {
 				if(isset($target_url) && $target_url != ""){
 					$this->comm->plu_redirect($target_url, 0, "登入成功");
 				}else{
-					if($this->code_model->is_mobile()){
-						$this->comm->plu_redirect(site_url()."user/mybox", 0, "登入成功");
-					}else{
-						$this->comm->plu_redirect(site_url()."user/mynews", 0, "登入成功");
-					}
+					$this->comm->plu_redirect(site_url(), 0, "登入成功");
 					//$this->comm->plu_redirect(site_url()."user/mynews", 0, "登入成功");
 				}
-
-            	
             }else{
 
             	$this->comm->plu_redirect(site_url(), 0, "登入失敗");

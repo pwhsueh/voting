@@ -10,6 +10,7 @@ class Home extends CI_Controller {
 		$this->load->helper('ajax');
 		$this->load->library('email');
 		$this->load->model('events_model');  
+		$this->load->helper('cookie');
 	}
 
 	function home() 
@@ -149,7 +150,9 @@ class Home extends CI_Controller {
 			$post_arr = $this->input->post();
 	 		$item_id = $post_arr['item_id'];
 	 		$action_code = $post_arr['action_code'];
-			$user_id = 7;//TODO:先寫死
+	 		
+			$user_id = $this->code_model->get_logged_in_account();
+			// $user_id = 」;//TODO:先寫死
 			$can_vote = $this->events_model->user_can_vote($user_id,$item_id);
 			if ($can_vote) {
 				$sucesss = $this->events_model->insert($user_id,$action_code,$item_id);
