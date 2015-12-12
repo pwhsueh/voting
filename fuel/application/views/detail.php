@@ -20,24 +20,30 @@
 
             <div class="work_type_detail">
 
-                <div class="work_vote" data-action="V"><span class="fa fa-heart"></span>&nbsp;
+                 <?php if ($event->can_vote == 1): ?>
+                <div class="work_vote" data-action="V">
+                    <span class="fa fa-heart"></span>&nbsp;
                     <?php if ($event->show_frontend == 1): ?>
-                    <span class="work_vote_num"><?php echo $item->vote ?></span>
-                    <?php endif ?>s
-                </div>
-
-                <div class="work_like" data-action="L"><span class="fa fa-thumbs-up"></span>&nbsp;
-                    <?php if ($event->show_frontend == 1): ?>
-                    <span class="work_vote_num"><?php echo $item->like ?></span>
+                    <span class="work_vote_num">&nbsp;<?php echo $item->vote ?></span>
                     <?php endif ?>
                 </div>
-
-                <div class="work_share" data-action="S"><span class="fa fa-share"></span>&nbsp;
+                <?php endif ?>
+                <?php if ($event->can_like == 1): ?>
+                <div class="work_like" data-action="L">
+                    <span class="fa fa-thumbs-up"></span>&nbsp;
                     <?php if ($event->show_frontend == 1): ?>
-                    <span class="work_vote_num"><?php echo $item->share ?></span>
+                    <span class="work_vote_num">&nbsp;<?php echo $item->like ?></span>
                     <?php endif ?>
                 </div>
-
+                <?php endif ?>
+                <?php if ($event->can_share == 1): ?>
+                <div class="work_share" data-action="S">
+                    <span class="fa fa-share"></span>&nbsp;
+                    <?php if ($event->show_frontend == 1): ?>
+                    <span class="work_vote_num">&nbsp;<?php echo $item->share ?></span>
+                    <?php endif ?>
+                </div>
+                <?php endif ?>
             </div>
 
             </div>
