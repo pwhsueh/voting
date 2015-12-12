@@ -72,7 +72,7 @@
                     </select>
                 </span>
                 <span class="vote_search">
-                    <input type="input" class="search_box" id="search_box" placeholder="搜尋作品" autocomplete="off">
+                    <input type="input" class="search_box" id="search_box" placeholder="搜尋作品" value="<?php echo $keyword ?>" autocomplete="off">
                     <div class="vote_search_icon"><i class="fa fa-search"></i></div>
                 </span>
             </div>
@@ -277,7 +277,22 @@
 
         $("#sequence").change(function(event) {
             /* Act on the event */
-            window.location = '<?php echo $current_url ?>?sort=' + $(this).val();
+            window.location = '<?php echo $current_url ?>?sort=' + $(this).val() + '&keyword=' + $("#search_box").val();
+        });
+
+        $("#search_box").blur(function(event) {
+            window.location = '<?php echo $current_url ?>?keyword=' + $(this).val() + '&sort=' + $("#sequence").val();
+        });
+
+        $('#search_box').bind("enterKey",function(e){
+            window.location = '<?php echo $current_url ?>?keyword=' + $(this).val() + '&sort=' + $("#sequence").val();
+        });
+
+       $('#search_box').keyup(function(e){
+            if(e.keyCode == 13)
+            {
+                $(this).trigger("enterKey");
+            }
         });
 
         $(".work_vote, .work_like, .work_share").click(function () {

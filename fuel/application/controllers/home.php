@@ -115,14 +115,18 @@ class Home extends CI_Controller {
 
 		$get_arr = $this->input->get();
 		$sort = 'default';
+		$keyword = '';
 		if (isset($get_arr) && isset($get_arr['sort'])) {
 			$sort = $get_arr['sort'];
+		}
+		if (isset($get_arr) && isset($get_arr['keyword'])) {
+			$keyword = $get_arr['keyword'];
 		}
 		// echo print_r($sort);
 		// die;
 
 		$event = $this->events_model->get_event_by_id($event_id);
-		$event_items = $this->events_model->get_event_items_by_id($event_id,$sort);
+		$event_items = $this->events_model->get_event_items($event_id,$keyword,$sort);
 		$rand_event_items = $this->events_model->get_random_event_items_by_id($event_id);
  
 
@@ -132,6 +136,7 @@ class Home extends CI_Controller {
 		$vars['do_action_url'] = base_url()."home/do_action";
 		$vars['current_url'] = base_url()."event/".$event_id;
 		$vars['sort'] = $sort;
+		$vars['keyword'] = $keyword;
 
 		// $seo_data = $this->code_model->get_seo_default();
 		
