@@ -72,6 +72,7 @@ foreach($lang_ary as $l)
 
 $route['introduction'] 				= 'home/introduction';
 $route['login'] 	= 'user/login';
+$route['logout'] 	= 'user/logout';
 $route['register'] 	    = 'user/register';
 $route['rights'] 	= 'home/rights';
 $route['rule'] 	= 'home/rule';
@@ -79,6 +80,7 @@ $route['event/(:num)'] 	= 'home/photo/$1';
 $route['userAction'] 	= 'home/do_action';
 $route['doRegister'] 	= 'user/do_register';
 $route['doLogin'] 	= 'user/do_login';
+$route['detail/(:num)'] 	= 'home/item/$1';
 
 
 // $route['iso_train/register/(:num)'] 		= 'train/register/$1';

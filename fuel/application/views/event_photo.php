@@ -168,7 +168,7 @@
                     <?php if (isset($event_items)): ?>
                         <?php foreach ($event_items as $key => $value): ?>
                         <div class="vote_block">
-                            <img src="<?php echo site_url().'assets/'.$value->photo_path ?>">
+                            <a href="<?php echo site_url().'detail/'.$value->id ?>"><img src="<?php echo site_url().'assets/'.$value->photo_path ?>"></a>
                             <div class="work_title"><?php echo $value->title ?></div>
                             <div class="work_name"><?php echo str_replace(';',' ',$value->sub_title) ?></div>
                             <div class="work_type">
@@ -315,9 +315,9 @@
                         // alert('送出成功！！');
                         // location.href = '<?php echo site_url() ?>home/contactus';
                     }
-                    else
+                    else if(data.status == -99)
                     {
-                  
+                        window.location = data.login_url;
                         // alert(data.msg);
                     }
                 }

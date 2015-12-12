@@ -143,6 +143,42 @@ class Home extends CI_Controller {
 		$this->fuel->pages->render("event_photo", $vars);
 	}
 
+	function item($item_id)
+	{	 
+		// $lang_code = $this->uri->segment(1);
+		$item = $this->events_model->get_event_item($item_id);
+		// print_r($item_id);
+		// print_r($item->event_id);
+		$event = $this->events_model->get_event_by_id($item->event_id); 
+ 
+		// print_r($event);
+		// die;
+
+		$vars['event'] = $event;
+		$vars['item'] = $item;  
+		$vars['do_action_url'] = base_url()."home/do_action";
+
+		// $seo_data = $this->code_model->get_seo_default();
+		
+		
+		// $vars['keyword'] = $seo_data["keyword"];
+		// $vars['image'] = site_url().'assets/'.$train->file_path;
+		// $vars['url'] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		// $vars['description'] = mb_substr( strip_tags($train->train_detail), 0, 150 );
+
+
+		// $vars['train_statues'] = $train_statues;
+		$vars['views'] = 'detail';
+		// $seo_data = $this->code_model->get_seo_default();
+		// $vars['title'] = $train->train_title."-領導力企管";
+		// $vars['keyword'] = $seo_data["keyword"];
+		// $vars['interest_news'] = $this->code_model->get_random_all_news();
+		// $vars['recommend_news'] = $this->code_model->get_extension_news("4"," AND type='139'",""," LIMIT 0,5");
+		$vars['base_url'] = base_url();
+		$page_init = array('location' => 'detail');
+		$this->fuel->pages->render("detail", $vars);
+	}
+
 	function do_action()//action_code:(L,S,V)
 	{	 
 	 	if(is_ajax())
@@ -150,8 +186,23 @@ class Home extends CI_Controller {
 			$post_arr = $this->input->post();
 	 		$item_id = $post_arr['item_id'];
 	 		$action_code = $post_arr['action_code'];
+
+	 		$this->load->helper('cookie'); 
+	        $target_url = $this->input->cookie("voting_target_url");
+	        if(!isset($target_url) || $target_url == ""){
+				$target_url = site_url();
+			}
 	 		
-			$user_id = $this->code_model->get_logged_in_account();
+			$user_id = $this->code_model->get_logged_in_account(); 
+			if ($user_id == null || $user_id == "") {
+				$result['status'] = -99; 
+				$result['login_url'] = site_url().'login'; 
+				echo json_encode($result);
+				die;
+			}
+			// $result['user_id'] = $user_id; 
+			// echo json_encode($result);
+			// die;
 			// $user_id = 」;//TODO:先寫死
 			$can_vote = $this->events_model->user_can_vote($user_id,$item_id);
 			if ($can_vote) {

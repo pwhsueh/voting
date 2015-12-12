@@ -35,6 +35,22 @@ class Events_model extends CI_Model {
         }
     } 
 
+    public function get_event_item($item_id){
+        $sql = @"select * 
+                ,(SELECT COUNT(b.action) FROM mod_items_actions b where b.item_id = a.id and b.action='L') AS 'like'
+                ,(SELECT COUNT(b.action) FROM mod_items_actions b where b.item_id = a.id and b.action='V') AS 'vote'
+                ,(SELECT COUNT(b.action) FROM mod_items_actions b where b.item_id = a.id and b.action='S') AS 'share'
+                from mod_event_items a where id = $item_id";
+        $query = $this->db->query($sql);
+        //echo $sql;exit;
+        if($query->num_rows() > 0)
+        {
+            $result = $query->row();
+
+            return $result;
+        }
+    } 
+
     public function get_random_event_items_by_id($event_id,$count=10){
         $sql = @"SELECT * FROM voting.mod_event_items where event_id =? ORDER BY RAND() LIMIT $count";
         $para = array(

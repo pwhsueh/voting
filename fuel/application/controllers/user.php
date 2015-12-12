@@ -59,7 +59,14 @@ class User extends CI_Controller {
        // $this->fuel_auth->logout();
 		$this->load->helper('cookie');
         delete_cookie("voting_account");
-        redirect(site_url());
+        $target_url = $this->input->cookie("voting_target_url");
+        if(isset($target_url) && $target_url != ""){
+			$this->comm->plu_redirect($target_url, 0, "登出成功");
+		}else{
+			// $this->comm->plu_redirect(site_url(), 0, "登入成功");
+        	redirect(site_url());
+			//$this->comm->plu_redirect(site_url()."user/mynews", 0, "登入成功");
+		}
     }
 
     function login()

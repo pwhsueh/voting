@@ -324,7 +324,7 @@ class Event_manage extends Fuel_base_controller {
 				$sub_title = rtrim($sub_title,';');
 			}
 
-			$file_name = "$event_id-$sort_order";//檔名規則
+			$file_name = $this->gen_file_name();//"$event_id-$sort_order";//檔名規則
 			$file_name = $file_name.substr($_FILES['file_'.$i]["name"], strpos($_FILES['file_'.$i]["name"], "."));//加上副檔名 
 			$_FILES['file_'.$i]['name'] = $file_name; //更改實體路徑檔名
 

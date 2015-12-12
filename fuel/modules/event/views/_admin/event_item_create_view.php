@@ -206,6 +206,8 @@
             <div class="edit_title">圖片遊標懸停文字</div>
             <div class="edit_input1"><input type="text" name="placeholder_{{this.Num}}" ></div>
         </div>
+
+        <input type="hidden" value="" name="id_{{this.Num}}" />    
     <div class="next_step">預覽前端頁面</div>
 </div>
 </script>
