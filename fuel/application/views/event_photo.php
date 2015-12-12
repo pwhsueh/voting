@@ -64,15 +64,15 @@
             <div id="vote_top" class="main_width">
                 <span class="vote_sequence">
                     <div class="sequence_text">排序方式</div>
-                    <select name="sequence" class="sequence">
-                        <option value="Taipei">依編號</option>
-                        <option value="Taoyuan">投票數</option>
-                        <option value="Hsinchu">按讚數</option>
-                        <option value="Miaoli">分享數</option>
+                    <select id="sequence" name="sequence" class="sequence">
+                        <option value="default" <?php echo $sort == 'default'?'selected':'' ?> >依編號</option>
+                        <option value="vote" <?php echo $sort == 'vote'?'selected':'' ?>>投票數</option>
+                        <option value="like" <?php echo $sort == 'like'?'selected':'' ?>>按讚數</option>
+                        <option value="share" <?php echo $sort == 'share'?'selected':'' ?>>分享數</option>
                     </select>
                 </span>
                 <span class="vote_search">
-                    <input type="input" class="search_box" placeholder="搜尋作品" autocomplete="off">
+                    <input type="input" class="search_box" id="search_box" placeholder="搜尋作品" autocomplete="off">
                     <div class="vote_search_icon"><i class="fa fa-search"></i></div>
                 </span>
             </div>
@@ -274,6 +274,12 @@
             $("#banner").show();
             $("#banner_mobile").hide();
         }
+
+        $("#sequence").change(function(event) {
+            /* Act on the event */
+            window.location = '<?php echo $current_url ?>?sort=' + $(this).val();
+        });
+
         $(".work_vote, .work_like, .work_share").click(function () {
             // var href = "login.php";
             // window.location.href = href;

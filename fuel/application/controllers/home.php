@@ -112,8 +112,17 @@ class Home extends CI_Controller {
 	{	 
 		// $lang_code = $this->uri->segment(1);
 
+
+		$get_arr = $this->input->get();
+		$sort = 'default';
+		if (isset($get_arr) && isset($get_arr['sort'])) {
+			$sort = $get_arr['sort'];
+		}
+		// echo print_r($sort);
+		// die;
+
 		$event = $this->events_model->get_event_by_id($event_id);
-		$event_items = $this->events_model->get_event_items_by_id($event_id);
+		$event_items = $this->events_model->get_event_items_by_id($event_id,$sort);
 		$rand_event_items = $this->events_model->get_random_event_items_by_id($event_id);
  
 
@@ -121,6 +130,8 @@ class Home extends CI_Controller {
 		$vars['event_items'] = $event_items; 
 		$vars['rand_event_items'] = $rand_event_items; 
 		$vars['do_action_url'] = base_url()."home/do_action";
+		$vars['current_url'] = base_url()."event/".$event_id;
+		$vars['sort'] = $sort;
 
 		// $seo_data = $this->code_model->get_seo_default();
 		

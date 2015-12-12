@@ -62,6 +62,7 @@ body ,ol ,ul ,li ,a ,img ,h1 ,h2 ,h3 ,h4 ,h5 ,i ,b ,dd ,tt ,input ,textarea {
 #banner{
     text-align:center;
     overflow: visible;
+    margin-top:47px;
 }
 #banner_mobile{
     text-align:center;
@@ -101,6 +102,9 @@ body ,ol ,ul ,li ,a ,img ,h1 ,h2 ,h3 ,h4 ,h5 ,i ,b ,dd ,tt ,input ,textarea {
     margin-top:-3px;
     overflow: visible;
     width:9.09%;
+    opacity:0;
+    background-position: center; 
+    background-size: 100%;
 }
 
 .sc_hover{
@@ -118,7 +122,7 @@ body ,ol ,ul ,li ,a ,img ,h1 ,h2 ,h3 ,h4 ,h5 ,i ,b ,dd ,tt ,input ,textarea {
 
 .wall img{
     width:100%;
-    //overflow:hidden;
+    overflow:hidden;
     opacity:0;
 }
 .wall2 img{
@@ -269,6 +273,17 @@ select {
     display:inline-block;
     text-align:center;
     width:100%;
+}
+.icon_detail{
+    text-align:center;
+    width:100%;
+    margin:-20px 0 10px 0;
+}
+.work_type_detail{
+    font-size:20px;
+    display:inline-block;
+    text-align:center;
+    margin:0 auto;
 }
 .work_vote{
     width:30%;
@@ -660,4 +675,11 @@ select {
     -moz-box-shadow: 0 0 12px           #555 !important;
     -webkit-box-shadow: 0 0 12px        #555 !important;
     box-shadow: 0 0 12px                #555 !important;    
+}
+
+.detail_img{
+    width:100%;
+}
+.detail_img img{
+    width:100%;
 }

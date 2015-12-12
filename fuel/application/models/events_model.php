@@ -19,12 +19,23 @@ class Events_model extends CI_Model {
         }
     } 
 
-    public function get_event_items_by_id($event_id){
+    public function get_event_items_by_id($event_id,$sort='default'){
         $sql = @"select * 
                 ,(SELECT COUNT(b.action) FROM mod_items_actions b where b.item_id = a.id and b.action='L') AS 'like'
                 ,(SELECT COUNT(b.action) FROM mod_items_actions b where b.item_id = a.id and b.action='V') AS 'vote'
                 ,(SELECT COUNT(b.action) FROM mod_items_actions b where b.item_id = a.id and b.action='S') AS 'share'
-                from mod_event_items a where event_id = $event_id";
+                from mod_event_items a where event_id = $event_id ";
+
+        if ($sort == 'like') {
+            $sql .= " ORDER BY (SELECT COUNT(b.action) FROM mod_items_actions b where b.item_id = a.id and b.action='L') DESC ";
+        }else if ($sort == 'share') {
+            $sql .= " ORDER BY (SELECT COUNT(b.action) FROM mod_items_actions b where b.item_id = a.id and b.action='V') DESC";
+        }else if ($sort == 'share') {
+            $sql .= " ORDER BY (SELECT COUNT(b.action) FROM mod_items_actions b where b.item_id = a.id and b.action='S') DESC";
+        }else{
+            $sql .= " ORDER BY a.sort_order ";
+        } 
+
         $query = $this->db->query($sql);
         //echo $sql;exit;
         if($query->num_rows() > 0)
