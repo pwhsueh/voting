@@ -3,13 +3,13 @@
             $url = site_url();
             for ($i = 1; $i <= 77; $i++) {
                 if ($i == 7 || $i == 15 || $i == 16 || $i == 17 || $i == 18 || $i == 19 || $i == 25 || $i == 26 || $i == 27 || $i == 28 || $i == 29 || $i == 30 || $i == 31 || $i == 36 || $i == 37 || $i == 38 || $i == 39 || $i == 40 || $i == 41 || $i == 42 || $i == 48 || $i == 49 || $i == 50 || $i == 51 || $i == 52 || $i == 61 || $i == 62 || $i == 63) {
-                    echo "<div class='wall'><img src='$url/assets/include/image/banner/img00.jpg'></div>";
+                    echo "<div class='wall' style='background-image:url(\"$url/assets/include/image/banner/img00.jpg\")'></div>";
                 } else {
                     if (sizeof($rand_event_items)>0) {
                          $k = $i % sizeof($rand_event_items);
                          $item = $rand_event_items[$k];
                          // print_r($rand_event_items);
-                         echo "<div class='wall'><img class='sc' src='$url/assets/$item->photo_path'></div>";
+                         echo "<div class='wall sc' style='background-image:url(\"$url/assets/$item->photo_path \")'></div>";
                         // switch ($k) {
                         //     case 0: 
                         //         echo "<div class='wall'><img class='sc' src='$url/assets/$rand_event_items[0]->photo_path'></div>";
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div id="banner_mobile">
-            <img src="<?php echo $url ?>/assets/include/image/banner/banner_mobile.jpg">
+            <img src="<?php echo $url ?>/assets/include/image/banner/banner_mobile.png">
             <div class="subject_mobile">
                 <img src='<?php echo $url ?>/assets/include/image/banner/banner_min.png'>
             </div>
@@ -408,30 +408,32 @@
             isMobile = true;
         }
         if (isMobile == true) {
-            $('.subject_mobile').css('top', ($('#banner_mobile img').height() * 0.4) + 'px');
+            $('.subject_mobile').css('top', ($('#banner_mobile img').height() * 0.3) + 'px');
             $(window).resize(function () {
-                $('.subject_mobile').css('top', ($('#banner_mobile img').height() * 0.4) + 'px');
+                $('.subject_mobile').css('top', ($('#banner_mobile img').height() * 0.3) + 'px');
                 $('.subject_mobile').css('left', ($('#banner_mobile img').width()) * 0.3 + 'px');
             });
 
         } else {
-            var h = $('.wall img').height() * 1;
-            $('.subject').css('top', (h + $('.wall img').height() * 1) + 'px');
+            $('.wall').height($('.wall').width()*0.5625);
+            var h = $('.wall').height() * 1;
+            $('.subject').css('top', (h + $('.wall').height() * 1.4) + 'px');
             $(window).resize(function () {
-                var h = $('.wall img').height() * 1;
-                $('.subject').css('top', (h + $('.wall img').height() * 1) + 'px');
-                var w = $('.wall img').width() * 3.1;
-                $('.subject').css('left', (w + $('.wall img').width()) + 'px');
+                $('.wall').height($('.wall').width()*0.5625);
+                var h = $('.wall').height() * 1;
+                $('.subject').css('top', (h + $('.wall').height() * 1.4) + 'px');
+                var w = $('.wall').width() * 3.1;
+                $('.subject').css('left', (w + $('.wall').width()) + 'px');
             });
             var subject = TweenLite.to('.subject', 1, {autoAlpha: 1, scale: 1}).delay(2.6);
-            var r1 = TweenLite.to('.r1 img', 1, {autoAlpha: 1}).delay(1);
-            var r2 = TweenLite.to('.r2 img', 1, {autoAlpha: 1}).delay(1.2);
-            var r3 = TweenLite.to('.r3 img', 1, {autoAlpha: 1}).delay(1.4);
-            var r4 = TweenLite.to('.r4 img', 1, {autoAlpha: 1}).delay(1.6);
-            var r5 = TweenLite.to('.r5 img', 1, {autoAlpha: 1}).delay(1.8);
-            var r6 = TweenLite.to('.r6 img', 1, {autoAlpha: 1}).delay(2.0);
-            var r7 = TweenLite.to('.r7 img', 1, {autoAlpha: 1}).delay(2.1);
-            var r8 = TweenLite.to('.r8 img', 1, {autoAlpha: 1}).delay(2.2);
+            var r1 = TweenLite.to('.r1', 1, {autoAlpha: 1}).delay(1);
+            var r2 = TweenLite.to('.r2', 1, {autoAlpha: 1}).delay(1.2);
+            var r3 = TweenLite.to('.r3', 1, {autoAlpha: 1}).delay(1.4);
+            var r4 = TweenLite.to('.r4', 1, {autoAlpha: 1}).delay(1.6);
+            var r5 = TweenLite.to('.r5', 1, {autoAlpha: 1}).delay(1.8);
+            var r6 = TweenLite.to('.r6', 1, {autoAlpha: 1}).delay(2.0);
+            var r7 = TweenLite.to('.r7', 1, {autoAlpha: 1}).delay(2.1);
+            var r8 = TweenLite.to('.r8', 1, {autoAlpha: 1}).delay(2.2);
         }
 
 

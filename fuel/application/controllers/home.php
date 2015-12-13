@@ -6,7 +6,8 @@ class Home extends CI_Controller {
 		parent::__construct(); 
 		$this->load->model('core_model');  
 		$this->load->model('code_model');  
-		$this->load->library('comm');	
+		$this->load->library('comm');
+		$this->load->library('set_meta');	
 		$this->load->helper('ajax');
 		$this->load->library('email');
 		$this->load->model('events_model');  
@@ -167,7 +168,7 @@ class Home extends CI_Controller {
 		// print_r($item_id);
 		// print_r($item->event_id);
 		$event = $this->events_model->get_event_by_id($item->event_id); 
- 
+ 		$this->set_meta->set_meta_data($item_id,"event_photo");
 		// print_r($event);
 		// die;
 
