@@ -189,7 +189,7 @@
                                     </div>
                                 <?php endif ?>
                                 <?php if ($event->can_share == 1): ?>
-                                    <div class="work_share" data-action="S" data-itemid="<?php echo $value->id ?>">
+                                    <div class="work_share" data-action="S" data-itemid="<?php echo $value->id ?>" data-picpath="<?php echo site_url().'assets/'.$value->photo_path ?>">
                                         <span class="fa fa-share"></span>&nbsp;
                                         <?php if ($event->show_frontend == 1): ?>
                                         <span class="work_vote_num"><?php echo $value->share ?></span>
@@ -302,6 +302,9 @@
             // console.log($(this).data('action'));
             // do_action($(this).data('itemid'),$(this).data('action'));
 
+            var thisId = $(this).data('itemid');
+            var thisPicPath = $(this).data('picpath');
+
             var postData = {//"plan_id": $("#plan_id").val(),
                 "item_id": $(this).data('itemid'),
                 "action_code": $(this).data('action')
@@ -329,6 +332,8 @@
                             span.text(num+1);
                         }
                         <?php endif ?>
+
+                        window.open("<?php echo $do_fb_share_url ?>"+thisId);
                         // $("#MerchantID").val(data.merchant_id);
                         // $("#XMLData").val(data.encode_data);
                         // $("#payment_form").attr('action', data.gateway);

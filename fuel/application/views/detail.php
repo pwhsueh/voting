@@ -1,3 +1,10 @@
+<meta name="og:description" content="<?php echo $item->title.str_replace(';',' ',$item->sub_title) ?>" />
+<meta property="og:title" content="<?php echo $item->title ?>"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="<?php echo site_url() ?>"/>
+<meta property="og:image" content="<?php echo site_url().'assets/'.$item->photo_path ?>"/>
+<meta property="og:site_name" content="滬江高中投票平台" />
+<meta property="fb:app_id" content="1398146363817437" />
  <div class="main_width">
 
     <center>
@@ -116,6 +123,8 @@
                             span.text(num+1);
                         }
                         <?php endif ?>
+
+                        window.open("<?php echo $do_fb_share_url ?>"+<?php echo $item->id ?>);
                         // $("#MerchantID").val(data.merchant_id);
                         // $("#XMLData").val(data.encode_data);
                         // $("#payment_form").attr('action', data.gateway);

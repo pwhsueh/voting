@@ -18,7 +18,7 @@
 
                         <!--<div class="login_alert"><span class="fa fa-exclamation-circle"></span>&nbsp;必需登入才能投票</div>-->
 
-                        <div class="facebook_login">Facebook登入&nbsp;<span class="fa fa-thumbs-o-up"></span></div>
+                        <div class="facebook_login" id="doFBRegi">Facebook登入&nbsp;<span class="fa fa-thumbs-o-up"></span></div>
 
                         <div class="login_email"><input type="input" name="login_mail" class="login_email_search" placeholder="E-mail" autocomplete="off"></div>
 
@@ -61,6 +61,10 @@
 
         $("#go_register").click(function(event) {
             window.location = "<?php echo site_url().'register' ?>";
+        });
+
+        $("#doFBRegi").click(function(event) {
+            window.location = "<?php echo $fb_data['login_url']  ?>";
         });
   
 

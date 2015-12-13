@@ -73,6 +73,8 @@ class User extends CI_Controller {
 	{	   
 		$vars['do_login_url'] = site_url()."doLogin";
 		$vars['views'] = 'login'; 
+		$fb_data	= $this->code_model->get_fb_data();
+		$vars['fb_data'] = $fb_data;
 		$page_init = array('location' => 'login');
 		$this->fuel->pages->render('login', $vars);
 	} 
@@ -127,7 +129,7 @@ class User extends CI_Controller {
 
 		if(isset($data['user_profile'])){
 
-			$this->input->set_cookie("ytalent_account","", time()-3600);
+			$this->input->set_cookie("voting_account","", time()-3600);
 			$mail = $data['user_profile']['id'];
 			$password = $data['user_profile']['id'];
 			$name = "";
@@ -138,20 +140,25 @@ class User extends CI_Controller {
 			if(isset($data['user_profile']['email'])){
 				$fb_email = $data['user_profile']['email'];
 			}
+			//insert fb data
+			$insert_data['email'] = $mail;
+            $insert_data['birthday'] = isset($data['user_profile']['birthday'])?$data['user_profile']['birthday']:"2000/01/01";
+            $insert_data['password'] = $password;
+            $insert_data['sex'] = $data['user_profile']['gender'];
+            $insert_data['phone'] = "";
+            $insert_data['area_code'] = "1";
 
-
-
-			$result = $this->code_model->do_register_resume($mail,$password,$name,$fb_email,$data['user_profile']['id']);
+			//$result = $this->code_model->do_register_resume($mail,$password,$name,$fb_email,$data['user_profile']['id']);
+			if( !$this->code_model->do_logged_in($mail,$password) ){
+				$result = $this->code_model->insert_mod_members($insert_data);
+			}
+			
 			$this->input->set_cookie("voting_account",$mail, time()+3600);
 			$this->input->set_cookie("voting_fb_logout_url",$data['logout_url'], time()+3600);
 			if(isset($target_url) && $target_url != ""){
 				$this->comm->plu_redirect($target_url, 0, "FACEBOOK登入成功");
 			}else{
-				if($this->code_model->is_mobile()){
-					$this->comm->plu_redirect(site_url()."user/mybox", 0, "FACEBOOK登入成功");
-				}else{
-					$this->comm->plu_redirect(site_url()."user/mynews", 0, "FACEBOOK登入成功");
-				}
+				$this->comm->plu_redirect(site_url()."", 0, "FACEBOOK登入成功");
 			}
 
 		}else{

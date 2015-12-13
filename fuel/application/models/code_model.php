@@ -19,6 +19,75 @@ class Code_model extends CI_Model {
         }
     }
 
+     public function get_fb_data($redirect_uri="doFBRegi"){
+        $this->load->library('facebook'); 
+        $user = $this->facebook->getUser();
+        //print_r($user);
+        //die();
+        
+        if ($user) {
+            try {
+                $data['user_profile'] = $this->facebook->api('/me?fields=name,email,gender,birthday');
+
+            } catch (FacebookApiException $e) {
+                //print_r($e."nill");
+                //die();
+                $user = null;
+            }
+        }else {
+            $this->facebook->destroySession();
+        }
+
+
+
+        if ($user) {
+
+            $data['logout_url'] = site_url('user/logout'); // Logs off application
+            // OR 
+            // Logs off FB!
+            // $data['logout_url'] = $this->facebook->getLogoutUrl();
+
+        } else {
+            $data['login_url'] = $this->facebook->getLoginUrl(array(
+                'redirect_uri' => site_url($redirect_uri), 
+                'scope' => array("email") // permissions here
+            ));
+        }
+
+        if(!isset($data['login_url'])){
+            $data['login_url'] = site_url($redirect_uri);
+        }
+        return $data;
+    }
+
+    public function do_register_resume($email, $password,$name="",$fb_email="",$fb_id="",$birth="",$contact_tel="")
+    {
+
+        $check_sql = @" SELECT account FROM mod_resume where account = '$email' ";
+        $query = $this->db->query($check_sql);
+        //echo $sql;exit;
+        if($query->num_rows() > 0)
+        {
+            return false;
+        }
+        if($fb_email == ""){
+            $fb_email = $email;
+        }
+        if(strpos($fb_email, "@") > -1 )
+            $mail_res  = $this->code_model->send_mail_by_id("4",$fb_email);
+
+        $sql = @" INSERT INTO mod_resume(account,password,name,birth,contact_tel,contact_mail,fb_account,create_time)VALUES(?,MD5(?),?,?,?,?,?,NOW())";
+        $para = array($email,$password, $name, $birth,$contact_tel,$fb_email,$fb_id);
+        $success = $this->db->query($sql, $para);
+
+        if($success)
+        {
+            return true;
+        }
+
+        return;
+    }
+
     public function get_seo_default(){
         $var["title"] = "國內ISO輔導資源最充足的顧問公司，協助您取得各項ISO認證，所有ISO認證問題找領導力企管就對了";
         $var["keyword"] = "ISO 9001,ISO 27001";

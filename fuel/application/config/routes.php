@@ -74,6 +74,7 @@ $route['introduction'] 				= 'home/introduction';
 $route['login'] 	= 'user/login';
 $route['logout'] 	= 'user/logout';
 $route['register'] 	    = 'user/register';
+$route['doFBRegi'] 		= 'user/do_fb_regi';
 $route['rights'] 	= 'home/rights';
 $route['rule'] 	= 'home/rule';
 $route['event/(:num)'] 	= 'home/photo/$1';

@@ -134,6 +134,7 @@ class Home extends CI_Controller {
 		$vars['event_items'] = $event_items; 
 		$vars['rand_event_items'] = $rand_event_items; 
 		$vars['do_action_url'] = base_url()."home/do_action";
+		$vars['do_fb_share_url'] = "http://www.facebook.com/sharer/sharer.php?u=".base_url()."detail/";
 		$vars['current_url'] = base_url()."event/".$event_id;
 		$vars['sort'] = $sort;
 		$vars['keyword'] = $keyword;
@@ -175,7 +176,7 @@ class Home extends CI_Controller {
 		$vars['do_action_url'] = base_url()."home/do_action";
 
 		// $seo_data = $this->code_model->get_seo_default();
-		
+		$vars['do_fb_share_url'] = "http://www.facebook.com/sharer/sharer.php?u=".base_url()."detail/";
 		
 		// $vars['keyword'] = $seo_data["keyword"];
 		// $vars['image'] = site_url().'assets/'.$train->file_path;

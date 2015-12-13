@@ -4,7 +4,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0" /> <!-- 於手機觀看時不會自動放大 -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> <!-- 最佳的IE兼容模式 -->
-        <title>Voting</title>
+        <meta property="og:site_name" content="滬江高中投票平台" />
+        <meta property="fb:app_id" content="1398146363817437" />
+        <title>滬江高中投票平台</title>
         <!--<link href="css/main.css" rel="stylesheet" type="text/css" />
         <link href="css/mobile.css" rel="stylesheet" media="only screen and (max-device-width:500px)"/>
         <!--link font awesome to use the icon-->
