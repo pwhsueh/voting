@@ -97,6 +97,7 @@
                             <!-- <div class="file_desc">圖片規格：600 x 600</div> -->
 
                         </div>
+                      
 
                         <input type="hidden" name="type" value="P" /><!-- 圖文版 -->
                         <div class="next_step" id="submit">下一步</div>

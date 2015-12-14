@@ -9,7 +9,7 @@
                          $k = $i % sizeof($rand_event_items);
                          $item = $rand_event_items[$k];
                          // print_r($rand_event_items);
-                         echo "<div class='wall sc' style='background-image:url(\"$url/assets/$item->photo_path \")'></div>";
+                         echo "<div class='wall sc' style='background-image:url(\"$url/assets/$item->sphoto_path \")'></div>";
                         // switch ($k) {
                         //     case 0: 
                         //         echo "<div class='wall'><img class='sc' src='$url/assets/$rand_event_items[0]->photo_path'></div>";
