@@ -157,7 +157,7 @@ class Event_manage_model extends MY_Model {
 		return;
 	}
 
-	public function insert_item($id,$event_id,$sort_order,$title,$sub_title,$photo_path,$placeholder)
+	public function insert_item($id,$event_id,$sort_order,$title,$sub_title,$photo_path,$sphoto_path,$placeholder)
 	{ 
 		$sql = @"INSERT INTO mod_event_items (
 				`id`,
@@ -166,8 +166,9 @@ class Event_manage_model extends MY_Model {
 				`title`, 
 				`sub_title`, 
 				`photo_path`,
+				`sphoto_path`,
 				`placeholder`)
-				VALUES (?,?,?, ?, ?, ?,?)
+				VALUES (?,?,?, ?, ?, ?,?,?)
 				";
 		$para = array(
 				$id,
@@ -176,6 +177,7 @@ class Event_manage_model extends MY_Model {
 				$title,
 				$sub_title,
 				$photo_path,
+				$sphoto_path,
 				$placeholder
 		);
 
