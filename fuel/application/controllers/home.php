@@ -128,7 +128,7 @@ class Home extends CI_Controller {
 
 		$event = $this->events_model->get_event_by_id($event_id);
 		$event_items = $this->events_model->get_event_items($event_id,$keyword,$sort);
-		$rand_event_items = $this->events_model->get_random_event_items_by_id($event_id);
+		$rand_event_items = $this->events_model->get_random_event_items_by_id($event_id,99);
  
 
 		$vars['event'] = $event;
