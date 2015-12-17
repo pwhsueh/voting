@@ -26,7 +26,7 @@ Class Set_meta {
 				//print_r($item);
 				$meta_data['page_title'] 	= $item->title;
 				$meta_data['meta_desc'] 	= $item->title.str_replace(';',' ',$item->sub_title);
-				//$meta_data['meta_kw'] 		= $case_detail->cd_title.",免費接外包,外包";
+				$meta_data['meta_kw'] 		= $item->title;
 				$meta_data['image'] 		= 'assets/'.$item->photo_path;
 				break;
 			/*		$meta_data = array();
