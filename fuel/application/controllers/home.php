@@ -22,60 +22,9 @@ class Home extends CI_Controller {
 
 	function index()
 	{	
-		$lang_code = $this->uri->segment(1);
-		//$vars['coach_item'] = $this->core_model->get_coach_item($this->core_model->get_cate_list("COACH_TYPE"));
-		/*echo "<pre>";
-		print_r($vars['coach_item']);
-		echo "</pre>";
-		die();*/
-
-		$vars['banner'] = $this->code_model->get_banner();
-		// $vars['news'] = $this->code_model->get_home_news();
-		$vars['performance'] = $this->code_model->get_home_success();
-
-		// $performance = $this->code_model->get_code_info("NEWS_TYPE","PERFORMANCE");
-		// print_r($performance);
-		// die;
-		$vars['performance_name'] = '';//$performance[0]->code_name;
-
-		$iso_news_type = $this->code_model->get_iso_news_type();
-		$result = array();
-
-		foreach ($iso_news_type as $key => $value) { 	
-			if ($value->code_key == 'FREE_TRAIN') {
-				$free_train = $this->train_model->get_list(1);
-				if (is_array($free_train) && sizeof($free_train) > 0) {
-					$value->detail = (object)array('title'=>$free_train[0]->train_title,'img'=>$free_train[0]->file_path,'url'=>site_url().'iso-training-courses?type=free');
-				}else{
-					$value->detail =  (object)array('title'=>'','img'=>'','url'=>site_url());
-				}
-				$result[$value->code_id] = $value;
-			}else if ($value->code_key == 'CHARGE_TRAIN') {
-				$free_train = $this->train_model->get_list(0);
-				if (is_array($free_train) && sizeof($free_train) > 0) {
-					$value->detail = (object)array('title'=>$free_train[0]->train_title,'img'=>$free_train[0]->file_path,'url'=>site_url().'iso-training-courses?type=charge');
-				}else{
-					$value->detail =  (object)array('title'=>'','img'=>'','url'=>site_url());
-				}
-				$result[$value->code_id] = $value;
-			}else{
-				$detail = $this->code_model->get_iso_news_items($value->code_id);				
-				if (is_array($detail) && sizeof($detail) > 0) {
-					$value->detail = (object)array('title'=>$detail[0]->title,'img'=>$detail[0]->img,'url'=>site_url().'home/iso_news?news_type='.$value->code_name);//$detail[0];
-				}else{
-					$value->detail = (object)array('title'=>'','img'=>'','url'=>site_url());
-				}
-				$result[$value->code_id] = $value;
-			}			
-		} 
-		// print_r($result);
-		// die;
-		$seo_data = $this->code_model->get_seo_default();
-		$vars['title'] = $seo_data["title"]."-領導力企管";
-		$vars['keyword'] = $seo_data["keyword"];
-		$vars['news'] = $result; 
 		$vars['views'] = 'index';
 		$vars['base_url'] = base_url();
+		$vars['layout'] = 'none';
 		$page_init = array('location' => 'index');
 
 		$this->fuel->pages->render("index", $vars);

@@ -11,7 +11,7 @@
         <meta name="og:type" content="website"/>
         <meta name="og:url" content="<?php echo site_url() ?>"/>
         <meta name="og:image" content="<?php echo $page_image ?>"/>
-        <title><?php echo $og_title ?></title>
+        <title>Voting</title>
         <!--<link href="css/main.css" rel="stylesheet" type="text/css" />
         <link href="css/mobile.css" rel="stylesheet" media="only screen and (max-device-width:500px)"/>
         <!--link font awesome to use the icon-->
