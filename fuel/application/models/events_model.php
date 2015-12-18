@@ -101,21 +101,44 @@ class Events_model extends CI_Model {
         return false;
     }
 
-    public function user_can_vote($user_id,$item_id){
-        $sql = @"select IFNULL(c.max_item,0) as max_item ,count(c.id) as now_vote from mod_items_actions a 
-                left join mod_event_items b on a.item_id = b.id  
-                left join mod_events c on b.event_id = c.id
-                where a.user_id = ? and a.action = 'V' and b.id = ?
-                group by a.user_id,c.id ";
-        $para = array(
-                $user_id,
-                $item_id
-            );
-        $query = $this->db->query($sql,$para);
+//     select * from mod_items_actions where user_id ='pwhsueh@gmail.com' 
+// AND DATE(modify_date) = CURDATE() AND action='V' 
+// AND item_id in (select id from mod_event_items where event_id = 3)
+
+// select IFNULL(max_item,0) as max_item from mod_events 
+// where id in (select event_id from mod_event_items where id=111)
+
+// select IFNULL(max_item,0) as max_item ,
+// (    select count(*) from mod_items_actions where user_id ='pwhsueh@gmail.com' 
+// AND DATE(modify_date) = CURDATE() AND action='V' 
+// AND item_id in (select id from mod_event_items where event_id = mod_events.id))
+// from mod_events 
+// where id in (select event_id from mod_event_items where id=111)
+
+    public function user_can_action($user_id,$item_id,$action){
+        // $sql = @"select IFNULL(c.max_item,0) as max_item ,count(c.id) as now_vote from mod_items_actions a 
+        //         left join mod_event_items b on a.item_id = b.id  
+        //         left join mod_events c on b.event_id = c.id
+        //         where a.user_id = ? and a.action = 'V' and b.id = ?
+        //         AND DATE(a.modify_date) = CURDATE()
+        //         group by a.user_id,c.id ";
+
+        $sql = @"select IFNULL(max_item,0) as max_item ,
+                (select count(*) from mod_items_actions where user_id ='$user_id' 
+                AND DATE(modify_date) = CURDATE() AND action='$action' 
+                AND item_id in (select id from mod_event_items where event_id = mod_events.id)) as now_action
+                from mod_events 
+                where id in (select event_id from mod_event_items where id=$item_id)";
+
+        // $para = array(
+        //         $user_id,
+        //         $item_id
+        //     );
+        $query = $this->db->query($sql);
         //echo $sql;exit;
         if($query->num_rows() > 0)
         { 
-            return $query->row()->max_item >= $query->row()->now_vote;
+            return $query->row()->max_item > $query->row()->now_action;
         }else{
             return true;
         }
@@ -138,7 +161,7 @@ class Events_model extends CI_Model {
     } 
 
      public function get_action($user_id,$action_code,$item_id){
-        $sql = @"select * from mod_items_actions where user_id = ? AND action = ? AND item_id = ?";
+        $sql = @"select * from mod_items_actions where user_id = ? AND action = ? AND item_id = ? AND DATE(modify_date) = CURDATE() ";
         $para = array(
                 $user_id,
                 $action_code, 

@@ -171,7 +171,7 @@ class Home extends CI_Controller {
 			// echo json_encode($result);
 			// die;
 			// $user_id = 」;//TODO:先寫死
-			$can_vote = $this->events_model->user_can_vote($user_id,$item_id);
+			$can_vote = $this->events_model->user_can_action($user_id,$item_id,$action_code);
 			if ($can_vote) {
 				$sucesss = $this->events_model->insert($user_id,$action_code,$item_id);
 				$result['exists'] = $sucesss?'N':'Y'; 

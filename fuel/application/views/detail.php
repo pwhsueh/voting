@@ -118,7 +118,27 @@
                         }
                         <?php endif ?>
 
-                        window.open("<?php echo $do_fb_share_url ?>"+<?php echo $item->id ?>);
+                        
+                        var action_name = '';
+                        if (postData.action_code == 'V') {
+                            action_name = '投票';
+                        }else if (postData.action_code == 'L') {
+                            action_name = '讚';
+                        }else{
+                            action_name = '分享';
+                        };                        
+
+                        if (data.limit_of_vote == 'Y') {
+                            alert('已超過最多可以'+action_name+'的項目');
+                        }else{
+                            if (data.exists == 'Y') {
+                                alert('此項目今日已經' + action_name+'了');
+                            }else{
+                                if (postData.action_code == 'S') {
+                                    window.open("<?php echo $do_fb_share_url ?>"+thisId);
+                                }
+                            }
+                        }
                         // $("#MerchantID").val(data.merchant_id);
                         // $("#XMLData").val(data.encode_data);
                         // $("#payment_form").attr('action', data.gateway);

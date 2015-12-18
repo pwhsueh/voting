@@ -229,42 +229,42 @@ header("Cache-Control: private, must-revalidate, max-age=0");
 
         <script>
 
-   function do_action(item_id,action_code){
+   // function do_action(item_id,action_code){
 
-        var url = '<?php echo $do_action_url ?>';
+   //      var url = '<?php echo $do_action_url ?>';
 
-        var postData = {//"plan_id": $("#plan_id").val(),
-            "item_id": item_id,
-            "action_code": action_code
-        };
+   //      var postData = {//"plan_id": $("#plan_id").val(),
+   //          "item_id": item_id,
+   //          "action_code": action_code
+   //      };
 
-        console.log(postData);
+   //      console.log(postData);
 
-        $.ajax({
-            url: url,
-            type: 'POST',
-            dataType: 'json',
-            data: postData,
-            success: function(data)
-            {
-                // console.log(data);
-                if (data.status == 1)
-                {
-                    // $("#MerchantID").val(data.merchant_id);
-                    // $("#XMLData").val(data.encode_data);
-                    // $("#payment_form").attr('action', data.gateway);
-                    // $("#payment_form").submit();
-                    // alert('送出成功！！');
-                    // location.href = '<?php echo site_url() ?>home/contactus';
-                }
-                else
-                {
+   //      $.ajax({
+   //          url: url,
+   //          type: 'POST',
+   //          dataType: 'json',
+   //          data: postData,
+   //          success: function(data)
+   //          {
+   //              // console.log(data);
+   //              if (data.status == 1)
+   //              {
+   //                  // $("#MerchantID").val(data.merchant_id);
+   //                  // $("#XMLData").val(data.encode_data);
+   //                  // $("#payment_form").attr('action', data.gateway);
+   //                  // $("#payment_form").submit();
+   //                  // alert('送出成功！！');
+   //                  // location.href = '<?php echo site_url() ?>home/contactus';
+   //              }
+   //              else
+   //              {
               
-                    // alert(data.msg);
-                }
-            }
-        });
-   }
+   //                  // alert(data.msg);
+   //              }
+   //          }
+   //      });
+   // }
 
     $(function () {
         
@@ -340,7 +340,31 @@ header("Cache-Control: private, must-revalidate, max-age=0");
                         }
                         <?php endif ?>
 
-                        window.open("<?php echo $do_fb_share_url ?>"+thisId);
+                       
+
+
+
+                        var action_name = '';
+                        if (postData.action_code == 'V') {
+                            action_name = '投票';
+                        }else if (postData.action_code == 'L') {
+                            action_name = '讚';
+                        }else{
+                            action_name = '分享';
+                        };                        
+
+                        if (data.limit_of_vote == 'Y') {
+                            alert('已超過最多可以'+action_name+'的項目');
+                        }else{
+                            if (data.exists == 'Y') {
+                                alert('此項目今日已經' + action_name+'了');
+                            }else{
+                                if (postData.action_code == 'S') {
+                                    window.open("<?php echo $do_fb_share_url ?>"+thisId);
+                                }
+                            }
+                        }
+
                         // $("#MerchantID").val(data.merchant_id);
                         // $("#XMLData").val(data.encode_data);
                         // $("#payment_form").attr('action', data.gateway);
