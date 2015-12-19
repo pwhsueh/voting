@@ -72,7 +72,7 @@ class Home extends CI_Controller {
 		if (isset($get_arr) && isset($get_arr['keyword'])) {
 			$keyword = $get_arr['keyword'];
 		}
-		// echo print_r($sort);
+	 // print_r($sort);
 		// die;
 
 		$event = $this->events_model->get_event_by_id($event_id);
@@ -167,19 +167,29 @@ class Home extends CI_Controller {
 				echo json_encode($result);
 				die;
 			}
-			// $result['user_id'] = $user_id; 
-			// echo json_encode($result);
-			// die;
-			// $user_id = 」;//TODO:先寫死
-			$can_vote = $this->events_model->user_can_action($user_id,$item_id,$action_code);
-			if ($can_vote) {
-				$sucesss = $this->events_model->insert($user_id,$action_code,$item_id);
-				$result['exists'] = $sucesss?'N':'Y'; 
-				$result['limit_of_vote'] = 'N'; 
+
+			$is_fb = !filter_var($user_id, FILTER_VALIDATE_EMAIL);
+			//fb 登入才能分享&讚
+			if (!$is_fb && ($action_code == 'S' || $action_code == 'L')) {
+				$result['forbidden'] = 'Y';
 			}else{
-				$result['limit_of_vote'] = 'Y'; 
-				$result['exists'] = 'Y';
+				$result['forbidden'] = 'N';
+				// $result['user_id'] = $user_id; 
+				// echo json_encode($result);
+				// die;
+				// $user_id = 」;//TODO:先寫死
+				$can_vote = $this->events_model->user_can_action($user_id,$item_id,$action_code);
+				if ($can_vote) {
+					$sucesss = $this->events_model->insert($user_id,$action_code,$item_id);
+					$result['exists'] = $sucesss?'N':'Y'; 
+					$result['limit_of_vote'] = 'N'; 
+				}else{
+					$result['limit_of_vote'] = 'Y'; 
+					$result['exists'] = 'Y';
+				}
 			}
+			
+			
 			$result['status'] = 1; 
 			echo json_encode($result);
 		}

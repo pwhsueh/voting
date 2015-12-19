@@ -229,42 +229,42 @@ header("Cache-Control: private, must-revalidate, max-age=0");
 
         <script>
 
-   // function do_action(item_id,action_code){
+   function do_action(item_id,action_code){
 
-   //      var url = '<?php echo $do_action_url ?>';
+        var url = '<?php echo $do_action_url ?>';
 
-   //      var postData = {//"plan_id": $("#plan_id").val(),
-   //          "item_id": item_id,
-   //          "action_code": action_code
-   //      };
+        var postData = {//"plan_id": $("#plan_id").val(),
+            "item_id": item_id,
+            "action_code": action_code
+        };
 
-   //      console.log(postData);
+        console.log(postData);
 
-   //      $.ajax({
-   //          url: url,
-   //          type: 'POST',
-   //          dataType: 'json',
-   //          data: postData,
-   //          success: function(data)
-   //          {
-   //              // console.log(data);
-   //              if (data.status == 1)
-   //              {
-   //                  // $("#MerchantID").val(data.merchant_id);
-   //                  // $("#XMLData").val(data.encode_data);
-   //                  // $("#payment_form").attr('action', data.gateway);
-   //                  // $("#payment_form").submit();
-   //                  // alert('送出成功！！');
-   //                  // location.href = '<?php echo site_url() ?>home/contactus';
-   //              }
-   //              else
-   //              {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: postData,
+            success: function(data)
+            {
+                // console.log(data);
+                if (data.status == 1)
+                {
+                    // $("#MerchantID").val(data.merchant_id);
+                    // $("#XMLData").val(data.encode_data);
+                    // $("#payment_form").attr('action', data.gateway);
+                    // $("#payment_form").submit();
+                    // alert('送出成功！！');
+                    // location.href = '<?php echo site_url() ?>home/contactus';
+                }
+                else
+                {
               
-   //                  // alert(data.msg);
-   //              }
-   //          }
-   //      });
-   // }
+                    // alert(data.msg);
+                }
+            }
+        });
+   }
 
     $(function () {
         
@@ -332,17 +332,17 @@ header("Cache-Control: private, must-revalidate, max-age=0");
                     console.log(data);
                     if (data.status == 1)
                     {
-                         <?php if ($event->show_frontend == 1): ?>
+                        <?php if ($event->show_frontend == 1): ?>
+                        if (data.forbidden == 'Y') {
+                            alert('只有FB登入才能分享or讚');
+                            return;
+                        };
                         if(data.exists == "N")
                         {
                             var num = parseInt(span.text()); 
                             span.text(num+1);
                         }
                         <?php endif ?>
-
-                       
-
-
 
                         var action_name = '';
                         if (postData.action_code == 'V') {
@@ -364,7 +364,6 @@ header("Cache-Control: private, must-revalidate, max-age=0");
                                 }
                             }
                         }
-
                         // $("#MerchantID").val(data.merchant_id);
                         // $("#XMLData").val(data.encode_data);
                         // $("#payment_form").attr('action', data.gateway);
