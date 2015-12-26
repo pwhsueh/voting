@@ -21,7 +21,7 @@ header("Cache-Control: private, must-revalidate, max-age=0");
             </div>
             <div id="vote_top" class="main_width">
                 <span class="vote_search">
-                    <input type="input" class="search_box" placeholder="Search" autocomplete="off">
+                    <input type="input" class="search_box" id="search_box"  placeholder="Search" value="<?php echo $keyword ?>" autocomplete="off">
                     <div class="vote_search_icon"><i class="fa fa-search"></i></div>
                 </span>
             </div>
