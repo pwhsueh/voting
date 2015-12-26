@@ -26,29 +26,7 @@
 		</div>
 	</div>
 
-	<div class="row" style="display:none;">
-		<div class="col-lg-12">
-			<div class="form-horizontal tasi-form">
-				<div class="form-group">
-					<div class="col-sm-2">
-						<select class="form-control" name="search_type">
-							<option value="0" <?php echo $search_type=="0"?"selected":"" ?>>課程名稱</option>
-							<option value="1" <?php echo $search_type=="1"?"selected":"" ?>>費用</option>
-							<option value="2" <?php echo $search_type=="2"?"selected":"" ?>>地點</option>
-						</select>
-					</div>
-					<div class="col-sm-4">
-						<div class="input-group date event_start_date">
-						  <input type="text" class="form-control" size="16" name="search_txt" id="search_txt" placeholder="Search..." value="<?php echo $search_txt ?>">
-						    <span class="input-group-btn">
-						    <button type="button" class="btn btn-warning date-set isearch" style="height:34px;"><i class="glyphicon glyphicon-search"></i></button>
-						    </span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	 
 	<div class="row">
 	    <div class="col-md-12 sheader"> 
 			<div class="form-inline" style="margin-top:10px" >

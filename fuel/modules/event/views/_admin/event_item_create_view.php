@@ -192,6 +192,7 @@
 
             <div class="edit_add_block_outside">
                 <input type="hidden" name="event_id" value="<?php echo $event->id ?>" >
+                <input type="hidden" name="type" value="P" >
                 <div class="edit_add"><span id="edit_add_icon" class="fa fa-plus-circle"></span>新增下一題</div>
 
                 <div class="edit_submit" id="submit">送出</div>

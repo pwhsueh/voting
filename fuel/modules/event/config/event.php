@@ -5,7 +5,8 @@
 |--------------------------------------------------------------------------
 */
 $config['nav']['event'] = array(
-	'event/lists'		=> 'Event'
+	'event/lists?type=P'		=> 'Event Photo',
+	'event/lists?type=T'		=> 'Event Text'
 );
 
 // deterines whether to use this configuration below or the database for controlling the blogs behavior

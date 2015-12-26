@@ -55,10 +55,11 @@ class Event_manage_model extends MY_Model {
 				`allow_email`,
 				`allow_fb`,
 				`photo`,
+				 spilt_file,  
 				`sort_order`,
 				`create_by`,
 				`modify_date` )
-				VALUES (?,?, ?, ?, ?,?,?,?, ?, ? ,?,?, NOW())
+				VALUES (?,?, ?, ?, ?,?,?,?, ?,?, ? ,?,?, NOW())
 				";
 		$para = array(
 				$data['type'],
@@ -71,6 +72,7 @@ class Event_manage_model extends MY_Model {
 				$data['allow_email'],
 				$data['allow_fb'],
 				$data['photo'],
+				$data['spilt_file'],
 				$sort_order,
 				$data['create_by']
 			);
@@ -97,6 +99,7 @@ class Event_manage_model extends MY_Model {
 									  allow_fb=?,
 									  sort_order=?, 
 									  photo=?,  
+									  spilt_file=?,  
 									  modify_date=NOW() 
 									  WHERE id=?";
 		$para = array(
@@ -110,6 +113,7 @@ class Event_manage_model extends MY_Model {
 				$data['allow_fb'],
 				$data['sort_order'],
 				$data['photo'],
+				$data['spilt_file'],
 				$id
 			);
 

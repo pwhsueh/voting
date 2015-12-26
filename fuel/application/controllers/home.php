@@ -58,6 +58,16 @@ class Home extends CI_Controller {
 		$this->fuel->pages->render("rule", $vars);
 	}
 
+	function event($event_id)
+	{
+		$event = $this->events_model->get_event_by_id($event_id);
+		if ($event->type == 'P') {
+			$this->photo($event_id);
+		}else{
+			$this->text($event_id);
+		}
+	}
+
 	function photo($event_id)
 	{	 
 		// $lang_code = $this->uri->segment(1);
@@ -108,6 +118,55 @@ class Home extends CI_Controller {
 		$vars['base_url'] = base_url();
 		$page_init = array('location' => 'event_photo');
 		$this->fuel->pages->render("event_photo", $vars);
+	}
+
+	function text($event_id)
+	{	 
+		// $lang_code = $this->uri->segment(1);
+
+
+		$get_arr = $this->input->get();
+		 
+		$keyword = '';
+	 
+		if (isset($get_arr) && isset($get_arr['keyword'])) {
+			$keyword = $get_arr['keyword'];
+		}
+	 // print_r($sort);
+		// die;
+
+		$event = $this->events_model->get_event_by_id($event_id);
+		$event_items = $this->events_model->get_event_items($event_id,$keyword,'default');
+		// $rand_event_items = $this->events_model->get_random_event_items_by_id($event_id,99);
+ 
+
+		$vars['event'] = $event;
+		$vars['event_items'] = $event_items; 
+		// $vars['rand_event_items'] = $rand_event_items; 
+		$vars['do_action_url'] = base_url()."home/do_action";
+		$vars['do_fb_share_url'] = "http://www.facebook.com/sharer/sharer.php?u=".base_url()."detail/";
+		$vars['current_url'] = base_url()."event/".$event_id;
+		$vars['keyword'] = $keyword;
+
+		// $seo_data = $this->code_model->get_seo_default();
+		
+		
+		// $vars['keyword'] = $seo_data["keyword"];
+		// $vars['image'] = site_url().'assets/'.$train->file_path;
+		// $vars['url'] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		// $vars['description'] = mb_substr( strip_tags($train->train_detail), 0, 150 );
+
+
+		// $vars['train_statues'] = $train_statues;
+		$vars['views'] = 'event_text';
+		// $seo_data = $this->code_model->get_seo_default();
+		// $vars['title'] = $train->train_title."-領導力企管";
+		// $vars['keyword'] = $seo_data["keyword"];
+		// $vars['interest_news'] = $this->code_model->get_random_all_news();
+		// $vars['recommend_news'] = $this->code_model->get_extension_news("4"," AND type='139'",""," LIMIT 0,5");
+		$vars['base_url'] = base_url();
+		$page_init = array('location' => 'event_text');
+		$this->fuel->pages->render("event_text", $vars);
 	}
 
 	function item($item_id)

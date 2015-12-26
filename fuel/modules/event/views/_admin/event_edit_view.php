@@ -123,26 +123,33 @@
                       
 
                         </div>
+                        <?php if (isset($event->photo) && "" != $event->photo): ?>
+                        <div class="edit_block"> 
+                            <img style="max-height:350px" src="<?php echo site_url()."assets/".$event->photo; ?>" />            
+                        </div>
+                        <?php endif ?>
+
                         <div class="edit_block">
 
                             <div class="edit_title">裁切圖片上傳</div>
 
                             <input type="file" id="spilt_file" name="spilt_file" class="inputfile inputfile-6"//>
 
-                            <label for="file"><span></span><strong><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></strong></label>
+                            <label for="spilt_file"><span></span><strong><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></strong></label>
 
                             <!-- <div class="file_desc">圖片規格：600 x 600</div> -->
                       
 
                         </div>
 
-                        <?php if (isset($event->photo) && "" != $event->photo): ?>
+                       <?php if (isset($event->spilt_file) && "" != $event->spilt_file): ?>
                         <div class="edit_block"> 
-							<img style="max-height:350px" src="<?php echo site_url()."assets/".$event->photo; ?>" />			
+                            <img style="max-height:350px" src="<?php echo site_url()."assets/".$event->spilt_file; ?>" />            
                         </div>
                         <?php endif ?>
                         			 
 						<input type="hidden" value="<?php echo $event->photo; ?>" name="exist_img" />	
+                        <input type="hidden" value="<?php echo $event->spilt_file; ?>" name="exist_spilt_file" />   
                         <input type="hidden" name="type" value="P" /><!-- 圖文版 -->
                         <div class="next_step" id="submit">下一步</div>
 
