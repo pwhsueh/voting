@@ -51,11 +51,12 @@
 								<input type="checkbox" id="select-all"/>
 							</label>
 						</th>
-						<th style="width:55%">名稱</th>
+						<th style="width:45%">名稱</th>
 						<th style="width:5%">排序</th>
 						<th style="width:10%">版型</th>
 						<th style="width:10%">擁有者</th>
 						<th style="width:10%">最後修改日期</th>
+						<th style="width:10%">投票結果</th>
 						<th style="width:10%">刪除</th>
 					</tr>
 				</thead>
@@ -97,6 +98,9 @@
 							<?php echo $row->modify_date ?>
 						</td>
 						<td>
+							<button class="btn btn-xs btn-info" type="button" onclick="aHover('<?php echo $report_url.$row->id?>')">投票結果</button>
+						</td>
+						<td>
 							<button class="btn btn-xs btn-danger del" type="button" EventID="<?php echo $row->id ?>">刪除</button>
 						</td>
 					</tr>
@@ -107,7 +111,7 @@
 					{
 				?>
 					<tr>
-						<td colspan="7">No results.</td>
+						<td colspan="8">No results.</td>
 					</tr>
 				<?php
 					}

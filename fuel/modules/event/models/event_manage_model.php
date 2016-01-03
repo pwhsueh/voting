@@ -40,6 +40,42 @@ class Event_manage_model extends MY_Model {
 
 		return;
 	}
+
+	public function get_report_by_event($event_id){
+		
+		$sql = @"SELECT (select title from mod_event_items where mod_event_items.id = mod_items_actions.item_id) item_name,
+			    item_id,count(*) as count ,action FROM mod_items_actions
+				where action = 'V' AND item_id in (select id from mod_event_items where event_id = '$event_id' )
+				group by item_id , action";
+	
+		$query = $this->db->query($sql);
+
+		if($query->num_rows() > 0)
+		{
+			$result = $query->result();
+
+			return $result;
+		}
+
+		return;
+	}
+
+	public function get_voiting_user_count_by_event($event_id){
+		
+		$sql = @"SELECT Count(Distinct user_id) As count FROM voting.mod_items_actions
+				where action = 'V' AND item_id in (select id from mod_event_items where event_id = '$event_id')";
+	
+		$query = $this->db->query($sql);
+
+		if($query->num_rows() > 0)
+		{
+			$result = $query->row()->count;
+
+			return $result;
+		}
+
+		return 0;
+	}
  
 	public function insert($data)
 	{

@@ -69,12 +69,31 @@ class Event_manage extends Fuel_base_controller {
 		$vars['search_url'] 		= $base_url.'fuel/event/lists';
 		$vars['detail_url'] 		= $base_url.'fuel/reg/lists/';
 		$vars['event_status_url']	= $base_url.'fuel/event/status/';
+		$vars['report_url'] 		= $base_url.'fuel/event/report/';
 		$vars['CI'] = & get_instance();
 
 
 		$this->fuel->admin->render('_admin/event_lists_view', $vars);
 
 	} 
+
+	function report($event_id){
+		$base_url = base_url();
+
+		$crumbs = array($this->module_uri => $this->module_name);
+		$this->fuel->admin->set_titlebar($crumbs);
+
+		$event = $this->event_manage_model->get_event_detail($event_id);
+		$target_url = $base_url.'fuel/event/report/'; 
+		$results = $this->event_manage_model->get_report_by_event($event_id); 
+		$count = $this->event_manage_model->get_voiting_user_count_by_event($event_id); 
+		$vars['CI'] = & get_instance(); 
+		$vars['results'] = $results;
+		$vars['count'] 	= $count;
+		$vars['event'] 	= $event;
+
+		$this->fuel->admin->render('_admin/event_report_lists_view', $vars);
+	}
 
 	function reg_lists($train_id,$dataStart=0)
 	{

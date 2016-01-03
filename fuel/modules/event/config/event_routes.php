@@ -4,6 +4,7 @@
 
 $route[FUEL_ROUTE.'event/lists'] 			= EVENT_FOLDER.'/event_manage/lists';
 $route[FUEL_ROUTE.'event/lists/(:num)'] 	= EVENT_FOLDER.'/event_manage/lists/$1';
+$route[FUEL_ROUTE.'event/report/(:num)'] 	= EVENT_FOLDER.'/event_manage/report/$1';
 $route[FUEL_ROUTE.'event/create'] 			= EVENT_FOLDER.'/event_manage/create';
 $route[FUEL_ROUTE.'event/edit'] 			= EVENT_FOLDER.'/event_manage/edit';
 $route[FUEL_ROUTE.'event/del'] 				= EVENT_FOLDER.'/event_manage/do_del';
