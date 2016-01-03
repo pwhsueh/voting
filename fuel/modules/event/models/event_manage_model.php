@@ -247,7 +247,7 @@ class Event_manage_model extends MY_Model {
 
 	public function del($id)
 	{
-		$sql = "DELETE FROM mod_train WHERE id=?";
+		$sql = "DELETE FROM mod_events WHERE id=?";
 		$para = array($id);
 		$success= $this->db->query($sql, $para);
 
@@ -261,7 +261,7 @@ class Event_manage_model extends MY_Model {
 
 	public function multi_del($ids)
 	{
-		$sql = "DELETE FROM mod_train WHERE id IN ($ids)";
+		$sql = "DELETE FROM mod_events WHERE id IN ($ids)";
 		$success = $this->db->query($sql);
 
 		if($success)
