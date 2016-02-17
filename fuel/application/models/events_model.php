@@ -32,7 +32,7 @@ class Events_model extends CI_Model {
 
         if ($sort == 'like') {
             $sql .= " ORDER BY (SELECT COUNT(b.action) FROM mod_items_actions b where b.item_id = a.id and b.action='L') DESC ";
-        }else if ($sort == 'share') {
+        }else if ($sort == 'vote') {
             $sql .= " ORDER BY (SELECT COUNT(b.action) FROM mod_items_actions b where b.item_id = a.id and b.action='V') DESC";
         }else if ($sort == 'share') {
             $sql .= " ORDER BY (SELECT COUNT(b.action) FROM mod_items_actions b where b.item_id = a.id and b.action='S') DESC";
@@ -43,7 +43,7 @@ class Events_model extends CI_Model {
         
 
         $query = $this->db->query($sql);
-        //echo $sql;exit;
+        // echo $sql;exit;
         if($query->num_rows() > 0)
         {
             $result = $query->result();

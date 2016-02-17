@@ -50,7 +50,7 @@ class User extends CI_Controller {
 			$this->comm->plu_redirect(site_url()."register", 0, "帳號已存在");
 		}else{
 			$member = $this->code_model->insert_mod_members($post_arr);
-			$this->comm->plu_redirect(site_url(), 0, "註冊成功");
+			$this->comm->plu_redirect(site_url().'event/1', 0, "註冊成功");
 		}
 	} 
 

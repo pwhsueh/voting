@@ -110,7 +110,11 @@
                     console.log(data);
                     if (data.status == 1)
                     {
-                         <?php if ($event->show_frontend == 1): ?>
+                        <?php if ($event->show_frontend == 1): ?>
+                        if (data.forbidden == 'Y') {
+                            alert('只有FB登入才能分享or讚');
+                            return;
+                        };
                         if(data.exists == "N")
                         {
                             var num = parseInt(span.text()); 
@@ -118,7 +122,6 @@
                         }
                         <?php endif ?>
 
-                        
                         var action_name = '';
                         if (postData.action_code == 'V') {
                             action_name = '投票';
