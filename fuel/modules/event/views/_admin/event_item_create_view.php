@@ -3,8 +3,21 @@
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<style>
+div#fuel_notification {
+        height: 0px;
+        border-bottom: 1px solid #ccc;
+        background-color: #ecf1f5;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        position: relative;
+}
 
- 
+div#fuel_left_panel {
+        width:201px;
+        top:0px;
+}
+</style>
  <div class="main_width">
 
     <div class="main_body">
@@ -192,6 +205,7 @@
 
             <div class="edit_add_block_outside">
                 <input type="hidden" name="event_id" value="<?php echo $event->id ?>" >
+                <input type="hidden" name="type" value="P" >
                 <div class="edit_add"><span id="edit_add_icon" class="fa fa-plus-circle"></span>新增下一題</div>
 
                 <div class="edit_submit" id="submit">送出</div>

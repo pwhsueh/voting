@@ -9,6 +9,19 @@
 		white-space : nowrap;
 		width: 340px;
 	}
+	div#fuel_notification {
+	    height: 0px;
+	    border-bottom: 1px solid #ccc;
+	    background-color: #ecf1f5;
+	    text-overflow: ellipsis;
+	    overflow: hidden;
+	    position: relative;
+	}
+
+	div#fuel_left_panel {
+			width:201px;
+			top:0px;
+	}
 </style>
 
 <section class="main-content">
@@ -26,29 +39,7 @@
 		</div>
 	</div>
 
-	<div class="row" style="display:none;">
-		<div class="col-lg-12">
-			<div class="form-horizontal tasi-form">
-				<div class="form-group">
-					<div class="col-sm-2">
-						<select class="form-control" name="search_type">
-							<option value="0" <?php echo $search_type=="0"?"selected":"" ?>>課程名稱</option>
-							<option value="1" <?php echo $search_type=="1"?"selected":"" ?>>費用</option>
-							<option value="2" <?php echo $search_type=="2"?"selected":"" ?>>地點</option>
-						</select>
-					</div>
-					<div class="col-sm-4">
-						<div class="input-group date event_start_date">
-						  <input type="text" class="form-control" size="16" name="search_txt" id="search_txt" placeholder="Search..." value="<?php echo $search_txt ?>">
-						    <span class="input-group-btn">
-						    <button type="button" class="btn btn-warning date-set isearch" style="height:34px;"><i class="glyphicon glyphicon-search"></i></button>
-						    </span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	 
 	<div class="row">
 	    <div class="col-md-12 sheader"> 
 			<div class="form-inline" style="margin-top:10px" >
@@ -73,11 +64,12 @@
 								<input type="checkbox" id="select-all"/>
 							</label>
 						</th>
-						<th style="width:55%">名稱</th>
+						<th style="width:45%">名稱</th>
 						<th style="width:5%">排序</th>
 						<th style="width:10%">版型</th>
 						<th style="width:10%">擁有者</th>
 						<th style="width:10%">最後修改日期</th>
+						<th style="width:10%">投票結果</th>
 						<th style="width:10%">刪除</th>
 					</tr>
 				</thead>
@@ -119,6 +111,9 @@
 							<?php echo $row->modify_date ?>
 						</td>
 						<td>
+							<button class="btn btn-xs btn-info" type="button" onclick="aHover('<?php echo $report_url.$row->id?>')">投票結果</button>
+						</td>
+						<td>
 							<button class="btn btn-xs btn-danger del" type="button" EventID="<?php echo $row->id ?>">刪除</button>
 						</td>
 					</tr>
@@ -129,7 +124,7 @@
 					{
 				?>
 					<tr>
-						<td colspan="7">No results.</td>
+						<td colspan="8">No results.</td>
 					</tr>
 				<?php
 					}

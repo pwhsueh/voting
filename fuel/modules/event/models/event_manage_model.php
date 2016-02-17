@@ -40,6 +40,42 @@ class Event_manage_model extends MY_Model {
 
 		return;
 	}
+
+	public function get_report_by_event($event_id){
+		
+		$sql = @"SELECT (select title from mod_event_items where mod_event_items.id = mod_items_actions.item_id) item_name,
+			    item_id,count(*) as count ,action FROM mod_items_actions
+				where action = 'V' AND item_id in (select id from mod_event_items where event_id = '$event_id' )
+				group by item_id , action";
+	
+		$query = $this->db->query($sql);
+
+		if($query->num_rows() > 0)
+		{
+			$result = $query->result();
+
+			return $result;
+		}
+
+		return;
+	}
+
+	public function get_voiting_user_count_by_event($event_id){
+		
+		$sql = @"SELECT Count(Distinct user_id) As count FROM voting.mod_items_actions
+				where action = 'V' AND item_id in (select id from mod_event_items where event_id = '$event_id')";
+	
+		$query = $this->db->query($sql);
+
+		if($query->num_rows() > 0)
+		{
+			$result = $query->row()->count;
+
+			return $result;
+		}
+
+		return 0;
+	}
  
 	public function insert($data)
 	{
@@ -55,10 +91,11 @@ class Event_manage_model extends MY_Model {
 				`allow_email`,
 				`allow_fb`,
 				`photo`,
+				 spilt_file,  
 				`sort_order`,
 				`create_by`,
 				`modify_date` )
-				VALUES (?,?, ?, ?, ?,?,?,?, ?, ? ,?,?, NOW())
+				VALUES (?,?, ?, ?, ?,?,?,?, ?,?, ? ,?,?, NOW())
 				";
 		$para = array(
 				$data['type'],
@@ -71,6 +108,7 @@ class Event_manage_model extends MY_Model {
 				$data['allow_email'],
 				$data['allow_fb'],
 				$data['photo'],
+				$data['spilt_file'],
 				$sort_order,
 				$data['create_by']
 			);
@@ -97,6 +135,7 @@ class Event_manage_model extends MY_Model {
 									  allow_fb=?,
 									  sort_order=?, 
 									  photo=?,  
+									  spilt_file=?,  
 									  modify_date=NOW() 
 									  WHERE id=?";
 		$para = array(
@@ -110,6 +149,7 @@ class Event_manage_model extends MY_Model {
 				$data['allow_fb'],
 				$data['sort_order'],
 				$data['photo'],
+				$data['spilt_file'],
 				$id
 			);
 
@@ -207,7 +247,7 @@ class Event_manage_model extends MY_Model {
 
 	public function del($id)
 	{
-		$sql = "DELETE FROM mod_train WHERE id=?";
+		$sql = "DELETE FROM mod_events WHERE id=?";
 		$para = array($id);
 		$success= $this->db->query($sql, $para);
 
@@ -221,7 +261,7 @@ class Event_manage_model extends MY_Model {
 
 	public function multi_del($ids)
 	{
-		$sql = "DELETE FROM mod_train WHERE id IN ($ids)";
+		$sql = "DELETE FROM mod_events WHERE id IN ($ids)";
 		$success = $this->db->query($sql);
 
 		if($success)
