@@ -209,6 +209,9 @@ class Home extends CI_Controller {
 	{	 
 	 	if(is_ajax())
 		{ 
+			$result['status'] = -98; 
+			echo json_encode($result);
+			die;
 			$post_arr = $this->input->post();
 	 		$item_id = $post_arr['item_id'];
 	 		$action_code = $post_arr['action_code'];

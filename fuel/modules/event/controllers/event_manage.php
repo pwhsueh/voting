@@ -45,7 +45,7 @@ class Event_manage extends Fuel_base_controller {
 		// 		break;
 		// }
 
-		$crumbs = array($this->module_uri => $this->module_name);
+		$crumbs = array($this->module_uri => '投票活動');
 		$this->fuel->admin->set_titlebar($crumbs);
 
 		$target_url = $base_url.'fuel/event/lists/';
@@ -80,7 +80,7 @@ class Event_manage extends Fuel_base_controller {
 	function report($event_id){
 		$base_url = base_url();
 
-		$crumbs = array($this->module_uri => $this->module_name);
+		$crumbs = array($this->module_uri => '投票活動');
 		$this->fuel->admin->set_titlebar($crumbs);
 
 		$event = $this->event_manage_model->get_event_detail($event_id);
@@ -117,7 +117,7 @@ class Event_manage extends Fuel_base_controller {
 			die();
 		}
 
-		$crumbs = array($this->module_uri => $this->module_name);
+		$crumbs = array($this->module_uri => '投票活動');
 		$this->fuel->admin->set_titlebar($crumbs);
 		$target_url = $base_url."fuel/reg/lists/$train_id/";
 		$filter = " WHERE train_id='$train_id' ";
@@ -157,7 +157,7 @@ class Event_manage extends Fuel_base_controller {
 			die();
 		}
 
-		$crumbs = array($this->module_uri => $this->module_name);
+		$crumbs = array($this->module_uri => '投票活動');
 		$this->fuel->admin->set_titlebar($crumbs);		
 		$vars['module_uri'] = base_url().$this->module_uri;
 		$vars['reg_list'] = base_url()."fuel/reg/lists/$result->train_id/0";
@@ -174,7 +174,7 @@ class Event_manage extends Fuel_base_controller {
 		$type = $this->input->get_post("type");
 		$vars['form_action'] = base_url().'fuel/event/do_create';
 		$vars['form_method'] = 'POST';
-		$crumbs = array($this->module_uri => $this->module_name);
+		$crumbs = array($this->module_uri => '投票活動');
 		$this->fuel->admin->set_titlebar($crumbs);		
 
 		$vars['module_uri'] = base_url().$this->module_uri;
@@ -203,7 +203,7 @@ class Event_manage extends Fuel_base_controller {
 		$vars['event'] = $event;
 		$vars['event_items'] = $event_items;
 
-		$crumbs = array($this->module_uri => $this->module_name);
+		$crumbs = array($this->module_uri => '投票活動');
 		$this->fuel->admin->set_titlebar($crumbs);		
 
 		$vars['module_uri'] = base_url().$this->module_uri;
@@ -458,7 +458,7 @@ class Event_manage extends Fuel_base_controller {
 
 		$vars['form_action'] = base_url().'fuel/event/do_edit?id='.$id;
 		$vars['form_method'] = 'POST';
-		$crumbs = array($this->module_uri => $this->module_name);
+		$crumbs = array($this->module_uri => '投票活動');
 		$this->fuel->admin->set_titlebar($crumbs);	
  
 	 

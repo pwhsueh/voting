@@ -371,6 +371,10 @@ header("Cache-Control: private, must-revalidate, max-age=0");
                         // alert('送出成功！！');
                         // location.href = '<?php echo site_url() ?>home/contactus';
                     }
+                    else if(data.status == -98)
+                    {
+                        alert('投票截止時間已到,感謝您的支持');
+                    }
                     else if(data.status == -99)
                     {
                         window.location = data.login_url;

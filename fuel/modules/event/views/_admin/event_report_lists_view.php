@@ -24,7 +24,9 @@
 		                            // unset($bar);
 		                            $bar = '';
 
-		                            for ($i = 0; $i < $value->count; $i++) {
+                                    $i_total = ( $value->count / $count) * 100;
+
+		                            for ($i = 0; $i < $i_total ; $i++) {
 
 		                                $bar.="<div class='result_bar'></div>";
 

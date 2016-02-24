@@ -35,9 +35,13 @@
 					if  (!$header_written)
 					{
 						$section_hdr = lang('section_'.$section);
+
 						if (empty($section_hdr))
 						{
 							$section_hdr = ucfirst(str_replace('_', ' ', $section));
+						}
+						if ($section_hdr == 'Event') {
+							$section_hdr = '投票活動';
 						}
 						echo "<div class=\"left_nav_section\" id=\"leftnav_".str_replace('/', '_', $section)."\">\n";
 						echo "\t<h3>".$section_hdr."</h3>\n";

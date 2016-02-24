@@ -1,12 +1,13 @@
-<?php
+﻿<?php
 /*
 |--------------------------------------------------------------------------
 | FUEL NAVIGATION: An array of navigation items for the left menu
 |--------------------------------------------------------------------------
 */
+
 $config['nav']['event'] = array(
-	'event/lists?type=P'		=> 'Event Photo',
-	'event/lists?type=T'		=> 'Event Text'
+	'event/lists?type=P'		=> '圖片版',
+	'event/lists?type=T'		=> '文字版'
 );
 
 // deterines whether to use this configuration below or the database for controlling the blogs behavior
