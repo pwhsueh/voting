@@ -3,7 +3,21 @@
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<style>
+div#fuel_notification {
+        height: 0px;
+        border-bottom: 1px solid #ccc;
+        background-color: #ecf1f5;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        position: relative;
+}
 
+div#fuel_left_panel {
+        width:201px;
+        top:0px;
+}
+</style>
  
  <div class="main_width">
 

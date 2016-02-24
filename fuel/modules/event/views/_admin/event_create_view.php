@@ -1,6 +1,20 @@
 <?php echo css($this->config->item('event_css'), 'event')?> 
 <?php echo css($this->config->item('event_upload_css'), 'event')?> 
+<style>
+div#fuel_notification {
+        height: 0px;
+        border-bottom: 1px solid #ccc;
+        background-color: #ecf1f5;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        position: relative;
+}
 
+div#fuel_left_panel {
+        width:201px;
+        top:0px;
+}
+</style>
  
 		    <div class="main_width">
 

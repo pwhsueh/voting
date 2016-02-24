@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-body ,ol ,ul ,li ,a ,img ,h1 ,h2 ,h3 ,h4 ,h5 ,i ,b ,dd ,tt ,input ,textarea {
+.noactions ol ,.noactions ul ,.noactions li ,.noactions a,.noactions img,.noactions h1,.noactions h2,.noactions h3,.noactions h4,.noactions h5,.noactions i,.noactions b,.noactions dd,.noactions tt,.noactions input,.noactions ,.noactions textarea {
     font-family:Verdana,"微軟正黑體";
     text-decoration: none;
     margin: 0px auto;
