@@ -52,6 +52,28 @@ div#fuel_left_panel {
 
                         <div class="edit_block">
 
+                            <div class="edit_title">上線時間</div>
+
+                            <div class="edit_content">
+ 
+                                <input type="text" class="date"  name="start_date">
+                            </div>
+
+                        </div>
+
+                        <div class="edit_block">
+
+                            <div class="edit_title">截止時間</div>
+
+                            <div class="edit_content">
+ 
+                                <input type="text"  class="date" name="deadline">
+                            </div>
+
+                        </div>
+
+                        <div class="edit_block">
+
                             <div class="edit_title">前端使用者登入方式</div>
 
                             <div class="edit_content">
@@ -102,7 +124,7 @@ div#fuel_left_panel {
 
 						<div class="edit_block">
 
-                            <div class="edit_title">圖片上傳</div>
+                            <div class="edit_title">圖片上傳（說明：請上傳1M以下圖片）</div>
 
                             <input type="file" id="file" name="file" class="inputfile inputfile-6"//>
 
@@ -112,7 +134,7 @@ div#fuel_left_panel {
 
                         </div>
 
-                        <div class="edit_block">
+                        <div class="edit_block" style="display:none">
 
                             <div class="edit_title">裁切圖片上傳</div>
 
@@ -152,7 +174,7 @@ div#fuel_left_panel {
 	}
 
 	$j(document).ready(function($) {
-
+        $('.date').datepicker({dateFormat: 'yy-mm-dd'}); 
 		$j("#submit").click(function(event) {
 			$j("#form").submit();
 		});

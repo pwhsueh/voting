@@ -27,7 +27,7 @@ class Event_manage_model extends MY_Model {
 
 	public function get_event_list($dataStart, $dataLen, $filter)
 	{
-		$sql = @"SELECT *  FROM mod_events $filter ORDER BY sort_order LIMIT $dataStart, $dataLen";
+		$sql = @"SELECT *  FROM mod_events $filter ORDER BY modify_date desc LIMIT $dataStart, $dataLen";
 	
 		$query = $this->db->query($sql);
 
@@ -41,11 +41,11 @@ class Event_manage_model extends MY_Model {
 		return;
 	}
 
-	public function get_report_by_event($event_id){
+	public function get_report_by_event($event_id,$action='V'){
 		
 		$sql = @"SELECT (select title from mod_event_items where mod_event_items.id = mod_items_actions.item_id) item_name,
 			    item_id,count(*) as count ,action FROM mod_items_actions
-				where action = 'V' AND item_id in (select id from mod_event_items where event_id = '$event_id' )
+				where action = '$action' AND item_id in (select id from mod_event_items where event_id = '$event_id' )
 				group by item_id , action";
 	
 		$query = $this->db->query($sql);
@@ -60,10 +60,10 @@ class Event_manage_model extends MY_Model {
 		return;
 	}
 
-	public function get_voiting_user_count_by_event($event_id){
+	public function get_voiting_user_count_by_event($event_id,$action='V'){
 		
 		$sql = @"SELECT Count(Distinct user_id) As count FROM voting.mod_items_actions
-				where action = 'V' AND item_id in (select id from mod_event_items where event_id = '$event_id')";
+				where action = '$action' AND item_id in (select id from mod_event_items where event_id = '$event_id')";
 	
 		$query = $this->db->query($sql);
 
@@ -76,6 +76,36 @@ class Event_manage_model extends MY_Model {
 
 		return 0;
 	}
+
+	public function get_voiting_user_id_detail($event_id){
+		
+		$sql = @"SELECT user_id,max(modify_date) as last_voting ,
+(SELECT COUNT(*) FROM mod_items_actions c WHERE c.user_id=a.user_id AND c.action = 'V' AND c.item_id IN (SELECT id FROM mod_event_items WHERE event_id = ?)) vote_count,
+(SELECT COUNT(*) FROM mod_items_actions c WHERE c.user_id=a.user_id AND c.action = 'L' AND c.item_id IN (SELECT id FROM mod_event_items WHERE event_id = ?)) like_count,
+(SELECT COUNT(*) FROM mod_items_actions c WHERE c.user_id=a.user_id AND c.action = 'S' AND c.item_id IN (SELECT id FROM mod_event_items WHERE event_id = ?)) share_count,
+(SELECT COUNT(*) FROM mod_items_actions c WHERE c.user_id=a.user_id AND c.item_id IN (SELECT id FROM mod_event_items WHERE event_id = ?)) total_count
+		FROM `mod_items_actions` a left join mod_event_items b on a.item_id = b.id where b.event_Id = ?
+				group by a.user_id order by total_count DESC";
+
+		$para = array(
+				$event_id,
+				$event_id,
+				$event_id,
+				$event_id,
+				$event_id
+			);		
+	
+		$query = $this->db->query($sql,$para);
+
+		if($query->num_rows() > 0)
+		{
+			$result = $query->result();
+
+			return $result;
+		}
+
+		return;
+	}
  
 	public function insert($data)
 	{
@@ -84,6 +114,8 @@ class Event_manage_model extends MY_Model {
 				`type`, 
 				`title`, 
 				`max_item`, 
+				`start_date`, 
+				`deadline`, 
 				`can_vote`, 
 				`can_like`,
 				`can_share`,
@@ -95,12 +127,14 @@ class Event_manage_model extends MY_Model {
 				`sort_order`,
 				`create_by`,
 				`modify_date` )
-				VALUES (?,?, ?, ?, ?,?,?,?, ?,?, ? ,?,?, NOW())
+				VALUES (?,?, ?,?, ?, ?, ?,?,?,?, ?,?, ? ,?,?, NOW())
 				";
 		$para = array(
 				$data['type'],
 				$data['title'],
 				$data['max_item'],
+				$data['start_date'],
+				$data['deadline'],
 				$data['can_vote'],
 				$data['can_like'],
 				$data['can_share'],
@@ -127,6 +161,8 @@ class Event_manage_model extends MY_Model {
 	{
 		$sql = @"UPDATE mod_events SET title=?, 
 									  max_item=?, 
+									  start_date=?, 
+									  deadline=?, 
 									  can_vote=?, 
 									  can_like=?, 
 									  can_share=?, 
@@ -141,6 +177,8 @@ class Event_manage_model extends MY_Model {
 		$para = array(
 				$data['title'],
 				$data['max_item'],
+				$data['start_date'],
+				$data['deadline'],
 				$data['can_vote'],
 				$data['can_like'],
 				$data['can_share'],
@@ -165,7 +203,7 @@ class Event_manage_model extends MY_Model {
 
 	public function get_event_detail($id)
 	{
-		$sql = @"SELECT * FROM mod_events WHERE id=?";
+		$sql = @"SELECT * FROM mod_events WHERE id=? ";
 		$para = array($id);
 		$query = $this->db->query($sql, $para);
 

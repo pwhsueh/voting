@@ -23,7 +23,9 @@ $config['event_javascript'] = array(
     site_url().'assets/admin_js/jquery.js',
     site_url().'assets/admin_js/bootstrap.min.js',
     site_url().'assets/admin_css/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js',
-    site_url().'assets/admin_js/jquery.timepicker.min.js'
+    site_url().'assets/admin_js/jquery.timepicker.min.js',
+    
+	site_url().'assets/admin_js/jquery-ui.min.js',
     // "ckeditor.js",
     // "adapters/jquery.js",
     // "jquery.numeric.min.js"

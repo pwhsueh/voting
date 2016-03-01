@@ -27,7 +27,7 @@ div#fuel_left_panel {
 
                     <div class="main_720">
  
-                    	<div class="edit_block">
+                    	<div class="edit_block" style="display:none">
 
                             <div class="edit_title"> 排序</div>
 
@@ -57,6 +57,28 @@ div#fuel_left_panel {
 
                                 最多可選&nbsp;<input type="text" class="edit_sequence" name="max_item" value="<?php echo $event->max_item ?>">&nbsp;個項目
 
+                            </div>
+
+                        </div>
+
+                        <div class="edit_block">
+
+                            <div class="edit_title">上線時間</div>
+
+                            <div class="edit_content">
+ 
+                                <input type="text" class="date"  name="start_date"  value="<?php echo $event->start_date ?>" >
+                            </div>
+
+                        </div>
+
+                        <div class="edit_block">
+
+                            <div class="edit_title">截止時間</div>
+
+                            <div class="edit_content">
+ 
+                                <input type="text"  class="date" name="deadline"  value="<?php echo $event->deadline ?>">
                             </div>
 
                         </div>
@@ -127,7 +149,7 @@ div#fuel_left_panel {
 
 						<div class="edit_block">
 
-                            <div class="edit_title">圖片上傳</div>
+                            <div class="edit_title">圖片上傳（說明：請上傳1M以下圖片）</div>
 
                             <input type="file" id="file" name="file" class="inputfile inputfile-6"//>
 
@@ -190,7 +212,7 @@ div#fuel_left_panel {
 	}
 
 	$j(document).ready(function($) {
-
+        $('.date').datepicker({dateFormat: 'yy-mm-dd'}); 
 		$j("#submit").click(function(event) {
 			$j("#form").submit();
 		});

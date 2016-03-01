@@ -76,7 +76,7 @@ div#fuel_left_panel {
                               
                            
 
-                            <div class="next_step">預覽前端頁面</div>
+                            <div class="next_step"><a target="_BLANK" href="<?php echo site_url().'detail/'.$value->id ?>">預覽前端頁面</a></div>
 
                         </div>
                         <?php $i++ ?>
@@ -117,8 +117,7 @@ div#fuel_left_panel {
                     </div>
 
                     <input type="hidden" value="" name="id_1" />    
-
-                    <div class="next_step">預覽前端頁面</div>
+ 
 
                 </div>
                     
@@ -166,7 +165,7 @@ div#fuel_left_panel {
     </div>
 
     <input type="hidden" value="" name="id_{{this.Num}}" />    
-    <div class="next_step">預覽前端頁面</div>
+    
 </div>
 </script>
  

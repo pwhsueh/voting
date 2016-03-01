@@ -136,7 +136,9 @@ header("Cache-Control: private, must-revalidate, max-age=0");
 
             var postData = {//"plan_id": $("#plan_id").val(),
                 "item_id": $(this).data('itemid'),
-                "action_code": $(this).data('action')
+                "action_code": $(this).data('action'),
+                "start" : '<?php echo uri_safe_encode($event->start_date) ?>',
+                "deadline" : '<?php echo uri_safe_encode($event->deadline) ?>'
             };
 
             // console.log(postData);
@@ -176,6 +178,14 @@ header("Cache-Control: private, must-revalidate, max-age=0");
                         // $("#payment_form").submit();
                         // alert('送出成功！！');
                         // location.href = '<?php echo site_url() ?>home/contactus';
+                    }
+                    else if(data.status == -97)
+                    {
+                        alert('投票尚未開始,感謝您的支持');
+                    }
+                    else if(data.status == -98)
+                    {
+                        alert('投票截止時間已到,感謝您的支持');
                     }
                     else if(data.status == -99)
                     {

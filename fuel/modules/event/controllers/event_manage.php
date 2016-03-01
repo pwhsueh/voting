@@ -68,6 +68,7 @@ class Event_manage extends Fuel_base_controller {
 		$vars['total_rows'] 		= $total_rows;
 		$vars['search_url'] 		= $base_url.'fuel/event/lists';
 		$vars['detail_url'] 		= $base_url.'fuel/reg/lists/';
+		$vars['report_detail_url'] 	= $base_url.'fuel/event/detail/list/';		
 		$vars['event_status_url']	= $base_url.'fuel/event/status/';
 		$vars['report_url'] 		= $base_url.'fuel/event/report/';
 		$vars['CI'] = & get_instance();
@@ -77,7 +78,35 @@ class Event_manage extends Fuel_base_controller {
 
 	} 
 
+	function detail_lists($event_id)
+	{
+		$base_url = base_url();
+ 
+		$crumbs = array($this->module_uri => '投票活動');
+		$this->fuel->admin->set_titlebar($crumbs); 
+
+		$results = $this->event_manage_model->get_voiting_user_id_detail($event_id);
+ 		// print_r($results);
+ 		// die;
+		$vars['results'] = $results;
+ 
+		$vars['CI'] = & get_instance();
+
+
+		$this->fuel->admin->render('_admin/event_detail_lists_view', $vars);
+
+	} 
+
+
 	function report($event_id){
+		$type = $this->input->get_post("type"); 
+		if ($type == 'L') {
+			$title = '按讚結果'; 
+		}else if ($type == 'S') {
+			$title = '分享結果';
+		}else {
+			$title = '投票結果';
+		}
 		$base_url = base_url();
 
 		$crumbs = array($this->module_uri => '投票活動');
@@ -85,9 +114,10 @@ class Event_manage extends Fuel_base_controller {
 
 		$event = $this->event_manage_model->get_event_detail($event_id);
 		$target_url = $base_url.'fuel/event/report/'; 
-		$results = $this->event_manage_model->get_report_by_event($event_id); 
-		$count = $this->event_manage_model->get_voiting_user_count_by_event($event_id); 
+		$results = $this->event_manage_model->get_report_by_event($event_id,$type); 
+		$count = $this->event_manage_model->get_voiting_user_count_by_event($event_id,$type); 
 		$vars['CI'] = & get_instance(); 
+		$vars['title'] = $title;
 		$vars['results'] = $results;
 		$vars['count'] 	= $count;
 		$vars['event'] 	= $event;

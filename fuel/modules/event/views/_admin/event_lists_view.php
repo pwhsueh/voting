@@ -64,12 +64,12 @@
 								<input type="checkbox" id="select-all"/>
 							</label>
 						</th>
-						<th style="width:45%">名稱</th>
-						<th style="width:5%">排序</th>
+						<th style="width:35%">名稱</th>
+						<!-- <th style="width:5%">排序</th> -->
 						<th style="width:10%">版型</th>
 						<th style="width:10%">擁有者</th>
-						<th style="width:10%">最後修改日期</th>
-						<th style="width:10%">投票結果</th>
+						<th style="width:15%">最後修改日期</th>
+						<th style="width:20%">投票結果</th>
 						<th style="width:10%">刪除</th>
 					</tr>
 				</thead>
@@ -93,10 +93,10 @@
 								</a>
 							</p>
 						</td>
-						<td>
+						<!-- <td>
 							<input type="text" class="sort_order" style="width:50px" data-id="<?php echo $row->id ?>" 
 							value="<?php echo $row->sort_order?>" />
-						</td>
+						</td> -->
 						<td>
 							<?php if ($row->type == 'P'): ?>
 							圖片版	
@@ -111,7 +111,10 @@
 							<?php echo $row->modify_date ?>
 						</td>
 						<td>
-							<button class="btn btn-xs btn-info" type="button" onclick="aHover('<?php echo $report_url.$row->id?>')">投票結果</button>
+							<button class="btn btn-xs btn-info" type="button" onclick="aHover('<?php echo $report_url.$row->id.'?type=V'?>')">投票結果</button>
+							<button class="btn btn-xs btn-info" type="button" onclick="aHover('<?php echo $report_url.$row->id.'?type=L'?>')">按讚數</button>
+							<button class="btn btn-xs btn-info" type="button" onclick="aHover('<?php echo $report_url.$row->id.'?type=S'?>')">分享數</button>
+							<button class="btn btn-xs btn-info" type="button" onclick="aHover('<?php echo $report_detail_url.$row->id ?>')">帳號明細</button>
 						</td>
 						<td>
 							<button class="btn btn-xs btn-danger del" type="button" EventID="<?php echo $row->id ?>">刪除</button>
@@ -124,7 +127,7 @@
 					{
 				?>
 					<tr>
-						<td colspan="8">No results.</td>
+						<td colspan="7">No results.</td>
 					</tr>
 				<?php
 					}

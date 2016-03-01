@@ -22,7 +22,7 @@ div#fuel_left_panel {
 
                     <div class="sys_right_name"><?php echo $event->title ?></div>
 
-                    <div class="sys_right_name">投票結果</div>
+                    <div class="sys_right_name"><?php echo $title ?></div>
 
                     <div class="main_720">
 

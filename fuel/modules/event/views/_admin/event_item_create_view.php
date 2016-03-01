@@ -71,7 +71,7 @@ div#fuel_left_panel {
                         
                                 <div class="edit_block">
 
-                                    <div class="edit_title">圖片上傳</div>
+                                    <div class="edit_title">圖片上傳（說明：請上傳1M以下圖片）</div>
 
                                     <input type="file" name="file_<?php echo $i; ?>" id="file_<?php echo $i; ?>" class="inputfile inputfile-6"/>
 
@@ -90,7 +90,7 @@ div#fuel_left_panel {
 
                                 <div class="edit_block">
 
-                                    <div class="edit_title">裁切圖片上傳</div>
+                                    <div class="edit_title">裁切圖片上傳（說明：請將圖片裁切為 489*276）</div>
 
                                     <input type="file" name="sfile_<?php echo $i; ?>" id="sfile_<?php echo $i; ?>" class="inputfile inputfile-6"/>
 
@@ -119,7 +119,7 @@ div#fuel_left_panel {
                               
                            
 
-                            <div class="next_step">預覽前端頁面</div>
+                            <div class="next_step"><a target="_BLANK" href="<?php echo site_url().'detail/'.$value->id ?>">預覽前端頁面</a></div>
 
                         </div>
                         <?php $i++ ?>
@@ -162,7 +162,7 @@ div#fuel_left_panel {
                 
                         <div class="edit_block">
 
-                            <div class="edit_title">圖片上傳</div>
+                            <div class="edit_title">圖片上傳（說明：請上傳1M以下圖片）</div>
 
                             <input type="file" name="file_1" id="file_1" class="inputfile inputfile-6"/>
 
@@ -173,7 +173,7 @@ div#fuel_left_panel {
                         </div>
                         <div class="edit_block">
 
-                            <div class="edit_title">裁切圖片上傳</div>
+                            <div class="edit_title">裁切圖片上傳（說明：請將圖片裁切為 489*276）</div>
 
                             <input type="file" name="sfile_1" id="sfile_1" class="inputfile inputfile-6"/>
 
@@ -193,7 +193,7 @@ div#fuel_left_panel {
                    
                     <input type="hidden" value="" name="id_1" />    
 
-                    <div class="next_step">預覽前端頁面</div>
+                    <!-- <div class="next_step">預覽前端頁面</div> -->
 
                 </div>
                     
@@ -240,13 +240,13 @@ div#fuel_left_panel {
         <div class="edit_input"><input type="text" name="subTitle_{{this.Num}}[]"></div><span class="edit2_add_icon fa fa-plus-circle" data-num="{{this.Num}}"></span>
     </div>
         <div class="edit_block">
-            <div class="edit_title">圖片上傳</div>
+            <div class="edit_title">圖片上傳（說明：請上傳1M以下圖片）</div>
             <input type="file" name="file_{{this.Num}}" id="file_{{this.Num}}" class="inputfile inputfile-6"/>
             <label for="file_{{this.Num}}"><span></span><strong><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></strong></label>
             <!-- <div class="file_desc">圖片規格：600 x 600</div> -->
         </div>
         <div class="edit_block">
-            <div class="edit_title">裁切圖片上傳</div>
+            <div class="edit_title">裁切圖片上傳（說明：請將圖片裁切為 489*276）</div>
             <input type="file" name="sfile_{{this.Num}}" id="sfile_{{this.Num}}" class="inputfile inputfile-6"/>
             <label for="sfile_{{this.Num}}"><span></span><strong><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></strong></label>
             <!-- <div class="file_desc">圖片規格：600 x 600</div> -->
@@ -256,8 +256,7 @@ div#fuel_left_panel {
             <div class="edit_input1"><input type="text" name="placeholder_{{this.Num}}" ></div>
         </div>
 
-        <input type="hidden" value="" name="id_{{this.Num}}" />    
-    <div class="next_step">預覽前端頁面</div>
+        <input type="hidden" value="" name="id_{{this.Num}}" />     
 </div>
 </script>
  

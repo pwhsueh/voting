@@ -9,6 +9,7 @@ class Home extends CI_Controller {
 		$this->load->library('comm');
 		$this->load->library('set_meta');	
 		$this->load->helper('ajax');
+		$this->load->helper('convert');
 		$this->load->library('email');
 		$this->load->model('events_model');  
 		$this->load->helper('cookie');
@@ -209,10 +210,36 @@ class Home extends CI_Controller {
 	{	 
 	 	if(is_ajax())
 		{ 
-			$result['status'] = -98; 
-			echo json_encode($result);
-			die;
+			// $result['status'] = -98; 
+			// echo json_encode($result);
+			// die;
 			$post_arr = $this->input->post();
+			$now = datetime_now(false);
+
+			$start = date(uri_safe_decode($post_arr['start']));
+			$deadline = date(uri_safe_decode($post_arr['deadline']));
+
+			// $result['now'] = $now;  
+			// $result['start'] = $start; 
+			// $result['deadline'] = $deadline; 
+			// $result['test1'] = $now>=$start; 
+			// $result['test2'] = $now<$deadline; 
+			// $result['test3'] = $now<$start; 
+			// $result['test4'] = $now>$deadline; 
+			// echo json_encode($result);
+			// die;
+
+			if ($now<$start) {
+				$result['status'] = -97; 
+				echo json_encode($result);
+				die;
+			}
+			if ($now>$deadline) {
+				$result['status'] = -98; 
+				echo json_encode($result);
+				die;
+			}
+
 	 		$item_id = $post_arr['item_id'];
 	 		$action_code = $post_arr['action_code'];
 

@@ -5,7 +5,7 @@ $config['dev_email'] = '';
 
 // date format used with date helpers
 date_default_timezone_set('America/Los_Angeles');
-$config['date_format'] = 'm/d/Y';
+$config['date_format'] = 'Y/m/d';
 $config['date_format_verbose'] = 'F j, Y';
 $config['time_format'] = 'g:ia';
 
