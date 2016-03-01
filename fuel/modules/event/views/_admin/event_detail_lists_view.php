@@ -48,7 +48,7 @@
 	<div class="row">
 		<section class="panel">
 			<div class="alert alert-success" role="alert">
-				<strong>共 <?php echo sizeof($results);?> 組帳號參與活動</strong>
+				<strong><?php echo $view_name ?> 共 <?php echo sizeof($results);?> 組帳號參與活動</strong>
 			</div>
 			<table class="table table-striped table-advance table-hover">
 				<thead>
@@ -71,7 +71,7 @@
 					<tr>
 					 
 						<td>
-							<?php echo $row->user_id ?>
+							<a target="_BLANK" href='<?php echo 'https://www.facebook.com/'.$row->user_id ?>'><?php echo $row->user_id ?></a>
 						</td>
 						<td>
 							<?php echo $row->vote_count ?>

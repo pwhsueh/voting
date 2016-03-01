@@ -106,6 +106,32 @@ class Event_manage_model extends MY_Model {
 
 		return;
 	}
+
+	public function get_voiting_item_detail($item_id){
+		
+		$sql = @"SELECT user_id,max(modify_date) as last_voting ,
+(SELECT COUNT(*) FROM mod_items_actions c WHERE c.user_id=a.user_id AND c.action = 'V' AND c.item_id = a.item_id) vote_count,
+(SELECT COUNT(*) FROM mod_items_actions c WHERE c.user_id=a.user_id AND c.action = 'L' AND c.item_id = a.item_id) like_count,
+(SELECT COUNT(*) FROM mod_items_actions c WHERE c.user_id=a.user_id AND c.action = 'S' AND c.item_id = a.item_id) share_count,
+COUNT(action) total_count
+		FROM `mod_items_actions` a where a.item_id = ?
+				group by a.user_id order by total_count DESC";
+
+		$para = array(
+				$item_id
+			);		
+	
+		$query = $this->db->query($sql,$para);
+
+		if($query->num_rows() > 0)
+		{
+			$result = $query->result();
+
+			return $result;
+		}
+
+		return;
+	}
  
 	public function insert($data)
 	{
@@ -204,6 +230,22 @@ class Event_manage_model extends MY_Model {
 	public function get_event_detail($id)
 	{
 		$sql = @"SELECT * FROM mod_events WHERE id=? ";
+		$para = array($id);
+		$query = $this->db->query($sql, $para);
+
+		if($query->num_rows() > 0)
+		{
+			$result = $query->row();
+
+			return $result;
+		}
+
+		return;
+	}
+
+	public function get_event_item_detail($id)
+	{
+		$sql = @"SELECT * FROM mod_event_items WHERE id=? ";
 		$para = array($id);
 		$query = $this->db->query($sql, $para);
 

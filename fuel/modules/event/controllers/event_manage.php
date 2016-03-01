@@ -85,10 +85,33 @@ class Event_manage extends Fuel_base_controller {
 		$crumbs = array($this->module_uri => '投票活動');
 		$this->fuel->admin->set_titlebar($crumbs); 
 
+		$event = $this->event_manage_model->get_event_detail($event_id);
 		$results = $this->event_manage_model->get_voiting_user_id_detail($event_id);
  		// print_r($results);
  		// die;
 		$vars['results'] = $results;
+		$vars['view_name'] = $event->title;
+ 		
+		$vars['CI'] = & get_instance();
+
+
+		$this->fuel->admin->render('_admin/event_detail_lists_view', $vars);
+
+	} 
+
+	function item_detail_lists($event_id,$item_id)
+	{
+		$base_url = base_url();
+ 
+		$crumbs = array($this->module_uri => '投票活動');
+		$this->fuel->admin->set_titlebar($crumbs); 
+
+		$event_item = $this->event_manage_model->get_event_item_detail($item_id);
+		$results = $this->event_manage_model->get_voiting_item_detail($item_id);
+ 		// print_r($results);
+ 		// die;
+		$vars['results'] = $results;
+		$vars['view_name'] = $event_item->title;
  
 		$vars['CI'] = & get_instance();
 

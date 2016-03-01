@@ -119,7 +119,10 @@ div#fuel_left_panel {
                               
                            
 
-                            <div class="next_step"><a target="_BLANK" href="<?php echo site_url().'detail/'.$value->id ?>">預覽前端頁面</a></div>
+                            <div class="next_step">
+                                <a target="_BLANK" href="<?php echo site_url().'detail/'.$value->id ?>">預覽前端頁面</a>
+                                <a target="_BLANK" href="<?php echo site_url().'fuel/event/item_detail/list/'.$value->event_id.'/'.$value->id ?>">帳號明細</a>
+                            </div>
 
                         </div>
                         <?php $i++ ?>

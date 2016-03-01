@@ -63,7 +63,7 @@ div#fuel_left_panel {
 
                         <div class="edit_block">
 
-                            <div class="edit_title">上線時間</div>
+                            <div class="edit_title">上線時間（EX:2015-12-20 00:00）</div>
 
                             <div class="edit_content">
  
@@ -74,7 +74,7 @@ div#fuel_left_panel {
 
                         <div class="edit_block">
 
-                            <div class="edit_title">截止時間</div>
+                            <div class="edit_title">截止時間（EX:2016-01-15 23:59）</div>
 
                             <div class="edit_content">
  
@@ -188,6 +188,12 @@ div#fuel_left_panel {
                         <input type="hidden" value="<?php echo $event->spilt_file; ?>" name="exist_spilt_file" />   
                         <input type="hidden" name="type" value="P" /><!-- 圖文版 -->
                         <div class="next_step" id="submit">下一步</div>
+                   
+
+                        <div class="edit_block">
+                             <a href="<?php echo site_url().'fuel/event/item/'.$event->id ?>">明細資料</a>           
+
+                        </div>
 
                     </div>
 
@@ -212,7 +218,7 @@ div#fuel_left_panel {
 	}
 
 	$j(document).ready(function($) {
-        $('.date').datepicker({dateFormat: 'yy-mm-dd'}); 
+        // $('.date').datepicker({dateFormat: 'yy-mm-dd'}); 
 		$j("#submit").click(function(event) {
 			$j("#form").submit();
 		});
