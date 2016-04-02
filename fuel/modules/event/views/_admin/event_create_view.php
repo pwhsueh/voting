@@ -52,18 +52,18 @@ div#fuel_left_panel {
 
                         <div class="edit_block">
 
-                            <div class="edit_title">上線時間</div>
+                            <div class="edit_title">上線時間（EX:2015-12-20 00:00）</div>
 
                             <div class="edit_content">
  
-                                <input type="text" class="date"  name="start_date">
+                                <input type="text" class="date"  name="start_date" >
                             </div>
 
                         </div>
 
                         <div class="edit_block">
 
-                            <div class="edit_title">截止時間</div>
+                            <div class="edit_title">截止時間（EX:2016-01-15 23:59）</div>
 
                             <div class="edit_content">
  
@@ -134,7 +134,9 @@ div#fuel_left_panel {
 
                         </div>
 
-                        <div class="edit_block" style="display:none">
+                        <?php if ($type == 'P'): ?>
+
+                         <div class="edit_block" style="display:none">
 
                             <div class="edit_title">裁切圖片上傳</div>
 
@@ -146,6 +148,10 @@ div#fuel_left_panel {
                       
 
                         </div>
+                            
+                        <?php endif ?>
+
+                       
                       
 
                         <input type="hidden" name="type" value="<?php echo $type ?>" /><!-- 圖文版 -->
@@ -174,7 +180,7 @@ div#fuel_left_panel {
 	}
 
 	$j(document).ready(function($) {
-        $('.date').datepicker({dateFormat: 'yy-mm-dd'}); 
+        // $('.date').datepicker({dateFormat: 'yy-mm-dd'}); 
 		$j("#submit").click(function(event) {
 			$j("#form").submit();
 		});

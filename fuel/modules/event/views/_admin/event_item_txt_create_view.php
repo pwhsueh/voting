@@ -57,18 +57,7 @@ div#fuel_left_panel {
 
                             </div>
 
-                            <div class="edit_block">
-
-                                <div class="edit_title">副標題</div>
-
-                                <?php $sub_ary = explode(";", $value->sub_title); ?>
-
-                                <div class="edit_input"><input type="text" name="subTitle_<?php echo $i; ?>[]" value="<?php echo $sub_ary[0] ?>"></div><span class="edit2_add_icon fa fa-plus-circle" data-num="<?php echo $i; ?>"></span>
-                                <?php for ($j=1;$j<sizeof($sub_ary);$j++): ?>
-                                    <div class="edit_input"><input type="text" name="subTitle_<?php echo $i; ?>[]" value="<?php echo $sub_ary[$j] ?>"></div> 
-                                <?php endfor ?>
-                            </div>
-
+                         
                         
                                  
 
@@ -108,13 +97,7 @@ div#fuel_left_panel {
 
                     </div>
 
-                    <div class="edit_block">
-
-                        <div class="edit_title">副標題</div>
-
-                        <div class="edit_input"><input type="text" name="subTitle_1[]"></div><span class="edit2_add_icon fa fa-plus-circle" data-num="1"></span>
-
-                    </div>
+                    
 
                     <input type="hidden" value="" name="id_1" />    
  
@@ -159,10 +142,7 @@ div#fuel_left_panel {
         <div class="edit_title">大標題</div>
         <div class="edit_input"><input type="text" name="title_{{this.Num}}"></div>
     </div>
-    <div class="edit_block">
-        <div class="edit_title">副標題</div>
-        <div class="edit_input"><input type="text" name="subTitle_{{this.Num}}[]"></div><span class="edit2_add_icon fa fa-plus-circle" data-num="{{this.Num}}"></span>
-    </div>
+   
 
     <input type="hidden" value="" name="id_{{this.Num}}" />    
     

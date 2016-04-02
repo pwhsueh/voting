@@ -8,8 +8,11 @@ header("Cache-Control: private, must-revalidate, max-age=0");
          <div id="banner2">
              
             <img src="<?php echo site_url().'assets/'.$event->photo ?>">
-            <div class="subject">
-                <img src='<?php echo site_url().'assets/'.$event->spilt_file ?>'>
+            <div class="b2_title">
+                <!-- <img src='<?php echo site_url().'assets/'.$event->spilt_file ?>'> -->
+
+                <div class="b2_title1"><?php echo $event->title ?></div>
+                <div class="b2_title2"><?php echo date_formatter($event->start_date) ?>-<?php echo date_formatter($event->deadline) ?></div>
             </div>
         </div>
         
@@ -92,7 +95,30 @@ header("Cache-Control: private, must-revalidate, max-age=0");
         });
    }
 
+  
+
     $(function () {
+
+          function fontResize() {
+            var perc = parseInt($(window).width()) / 125;
+            $('body').css('font-size', perc);
+        }
+        function titlelocate(){
+            var h = $('#banner2 img').height() * 0.1;
+            //alert($('#banner2 img').height());
+            $(".b2_title").css('bottom', h + 'px');
+        }
+
+           $(document).ready(function () {
+            fontResize();
+            titlelocate();
+        });
+
+        $(window).resize(function () {
+            fontResize();
+            titlelocate();
+        });
+
         
         var isMobile = false; //initiate as false
         // device detection

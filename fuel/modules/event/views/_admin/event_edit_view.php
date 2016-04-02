@@ -165,7 +165,9 @@ div#fuel_left_panel {
                         </div>
                         <?php endif ?>
 
-                        <div class="edit_block">
+                        <?php if ($type == 'P'): ?>
+
+                         <div class="edit_block">
 
                             <div class="edit_title">裁切圖片上傳</div>
 
@@ -183,6 +185,10 @@ div#fuel_left_panel {
                             <img style="max-height:350px" src="<?php echo site_url()."assets/".$event->spilt_file; ?>" />            
                         </div>
                         <?php endif ?>
+
+                        <?php endif ?>
+
+                       
                         			 
 						<input type="hidden" value="<?php echo $event->photo; ?>" name="exist_img" />	
                         <input type="hidden" value="<?php echo $event->spilt_file; ?>" name="exist_spilt_file" />   
