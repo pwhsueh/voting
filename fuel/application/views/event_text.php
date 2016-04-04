@@ -7,7 +7,8 @@ header("Cache-Control: private, must-revalidate, max-age=0");
 
          <div id="banner2">
              
-            <img src="<?php echo site_url().'assets/'.$event->photo ?>">
+            <!-- <img src="<?php echo site_url().'assets/'.$event->photo ?>"> -->
+            <img src="<?php echo site_url().'assets/include/image/banner/layout_B.jpg' ?>">
             <div class="b2_title">
                 <!-- <img src='<?php echo site_url().'assets/'.$event->spilt_file ?>'> -->
 

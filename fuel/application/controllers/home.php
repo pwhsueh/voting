@@ -32,28 +32,39 @@ class Home extends CI_Controller {
 	 
 	} 
 
-	function introduction(){  
+	function introduction($event_id){  
 	 
 		$vars['views'] = 'introduction';
 		$vars['base_url'] = base_url();
+		$vars['event_id'] = $event_id;
+		$event = $this->events_model->get_event_by_id($event_id);
 		$page_init = array('location' => 'introduction');
+
+		$vars['base_url'] = base_url();
+		$vars['introduction'] = $event->introduction;
 
 		$this->fuel->pages->render("introduction", $vars);
 	}
 
-	function rights(){  
+	function rights($event_id){  
 	 
 		$vars['views'] = 'rights';
 		$vars['base_url'] = base_url();
+		$vars['event_id'] = $event_id;
+		$event = $this->events_model->get_event_by_id($event_id);
+		$vars['rights'] = $event->rights;
 		$page_init = array('location' => 'rights');
 
 		$this->fuel->pages->render("rights", $vars);
 	}
 
-	function rule(){  
+	function rule($event_id){  
 	 
 		$vars['views'] = 'rule';
 		$vars['base_url'] = base_url();
+		$vars['event_id'] = $event_id;
+		$event = $this->events_model->get_event_by_id($event_id);
+		$vars['rule'] = $event->rule;
 		$page_init = array('location' => 'rule');
 
 		$this->fuel->pages->render("rule", $vars);
@@ -92,6 +103,7 @@ class Home extends CI_Controller {
  
 
 		$vars['event'] = $event;
+		$vars['event_id'] = $event_id;
 		$vars['event_items'] = $event_items; 
 		$vars['rand_event_items'] = $rand_event_items; 
 		$vars['do_action_url'] = base_url()."home/do_action";

@@ -19,6 +19,9 @@ $route[FUEL_ROUTE.'event/do_item_create'] 		= EVENT_FOLDER.'/event_manage/do_ite
 $route[FUEL_ROUTE.'event/detail/list/(:num)'] 	= EVENT_FOLDER.'/event_manage/detail_lists/$1';
 $route[FUEL_ROUTE.'event/item_detail/list/(:num)/(:num)'] 	= EVENT_FOLDER.'/event_manage/item_detail_lists/$1/$2';
 
+$route[FUEL_ROUTE.'event_info/edit/(:num)']     = EVENT_FOLDER.'/event_manage/edit_info/$1';
+$route[FUEL_ROUTE.'event_info/do_edit']     = EVENT_FOLDER.'/event_manage/do_edit_info';
+
 $route[FUEL_ROUTE.'reg/lists'] 			        = EVENT_FOLDER.'/event_manage/reg_lists';
 $route[FUEL_ROUTE.'reg/lists/(:num)/(:num)'] 	= EVENT_FOLDER.'/event_manage/reg_lists/$1/$2';
 $route[FUEL_ROUTE.'reg/detail/(:num)'] 	        = EVENT_FOLDER.'/event_manage/reg_detail/$1';

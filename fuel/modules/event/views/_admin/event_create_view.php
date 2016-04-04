@@ -90,6 +90,8 @@ div#fuel_left_panel {
 
                         </div>
 
+                        <?php if ($type == 'P'): ?>
+
                         <div class="edit_block">
 
                             <div class="edit_title">前端登入者可執行的動作</div>
@@ -134,7 +136,7 @@ div#fuel_left_panel {
 
                         </div>
 
-                        <?php if ($type == 'P'): ?>
+                        
 
                          <div class="edit_block" style="display:none">
 
@@ -148,9 +150,14 @@ div#fuel_left_panel {
                       
 
                         </div>
+
+
                             
                         <?php endif ?>
 
+                        <?php if ($type == 'T'): ?>
+                            <input type="hidden" value="Y" name="can_vote" />
+                        <?php endif ?>
                        
                       
 

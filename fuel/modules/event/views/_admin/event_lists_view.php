@@ -64,12 +64,12 @@
 								<input type="checkbox" id="select-all"/>
 							</label>
 						</th>
-						<th style="width:35%">名稱</th>
+						<th style="width:25%">名稱</th>
 						<!-- <th style="width:5%">排序</th> -->
 						<th style="width:10%">版型</th>
 						<th style="width:10%">擁有者</th>
 						<th style="width:15%">最後修改日期</th>
-						<th style="width:20%">投票結果</th>
+						<th style="width:30%">投票結果</th>
 						<th style="width:10%">刪除</th>
 					</tr>
 				</thead>
@@ -111,6 +111,7 @@
 							<?php echo $row->modify_date ?>
 						</td>
 						<td>
+							<button class="btn btn-xs btn-info" type="button" onclick="aHover('<?php echo $info_url.$row->id.'?type=V'?>')">活動明細</button>
 							<button class="btn btn-xs btn-info" type="button" onclick="aHover('<?php echo $report_url.$row->id.'?type=V'?>')">投票結果</button>
 							<button class="btn btn-xs btn-info" type="button" onclick="aHover('<?php echo $report_url.$row->id.'?type=L'?>')">按讚數</button>
 							<button class="btn btn-xs btn-info" type="button" onclick="aHover('<?php echo $report_url.$row->id.'?type=S'?>')">分享數</button>

@@ -65,7 +65,7 @@ div#fuel_left_panel {
                               
                            
 
-                            <div class="next_step"><a target="_BLANK" href="<?php echo site_url().'detail/'.$value->id ?>">預覽前端頁面</a></div>
+                            <div class="next_step"><a target="_BLANK" href="<?php echo site_url().'event/'.$value->event_id ?>">預覽前端頁面</a></div>
 
                         </div>
                         <?php $i++ ?>

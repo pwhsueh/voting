@@ -70,13 +70,13 @@ foreach($lang_ary as $l)
 
  
 
-$route['introduction'] 				= 'home/introduction';
+$route['introduction/(:num)'] 				= 'home/introduction/$1';
 $route['login'] 	= 'user/login';
 $route['logout'] 	= 'user/logout';
 $route['register'] 	    = 'user/register';
 $route['doFBRegi'] 		= 'user/do_fb_regi';
-$route['rights'] 	= 'home/rights';
-$route['rule'] 	= 'home/rule';
+$route['rights/(:num)'] 	= 'home/rights/$1';
+$route['rule/(:num)'] 	= 'home/rule/$1';
 $route['event/(:num)'] 	= 'home/event/$1';
 $route['userAction'] 	= 'home/do_action';
 $route['doRegister'] 	= 'user/do_register';

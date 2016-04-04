@@ -60,7 +60,8 @@ class Event_manage extends Fuel_base_controller {
 		$vars['page_jump'] = $this->pagination->create_links();
 		$vars['create_url'] = $base_url.'fuel/event/create?type='.$type;
 		$vars['type'] = $type; 
-		// $vars['search_txt'] = $search_txt;  
+		// $vars['search_txt'] = $search_txt;  info_url
+		$vars['info_url'] 			= $base_url.'fuel/event_info/edit/'; 
 		$vars['edit_url'] 			= $base_url.'fuel/event/edit?id='; 
 		$vars['del_url'] 			= $base_url.'fuel/event/del?id=';
 		$vars['multi_del_url'] 		= $base_url.'fuel/event/do_multi_del';
@@ -77,6 +78,56 @@ class Event_manage extends Fuel_base_controller {
 		$this->fuel->admin->render('_admin/event_lists_view', $vars);
 
 	} 
+
+	function edit_info($event_id)
+	{
+		$base_url = base_url();
+ 
+		$crumbs = array($this->module_uri => '投票活動');
+		$this->fuel->admin->set_titlebar($crumbs); 
+
+		$event = $this->event_manage_model->get_event_detail($event_id);
+		$vars['form_action'] = base_url().'fuel/event_info/do_edit';
+		$vars['form_method'] = 'POST';
+		$vars['event'] = $event;
+		// $vars['view_name'] = $event->title;
+		$vars['event_uri'] = $base_url.'fuel/event/edit?id='.$event_id;
+ 		$vars['module_uri'] = $base_url.'fuel/event/lists?type='.$event->type;  
+		$vars['CI'] = & get_instance();
+
+
+		$this->fuel->admin->render('_admin/event_info_create_view', $vars);
+	}
+
+	function do_edit_info()
+	{
+		$base_url = base_url();
+		$id = $this->input->get_post("id");		
+		$user_info = $this->fuel_users_model->get_login_user_info();   
+		// $module_uri = $base_url.'fuel/event/edit?id='.$id; 
+		$post_arr = $this->input->post();	
+		$post_arr["introduction"] = htmlspecialchars($post_arr["introduction"]);	
+		$post_arr["rights"] = htmlspecialchars($post_arr["rights"]);	
+		$post_arr["rule"] = htmlspecialchars($post_arr["rule"]);	
+		 
+ 
+		$success = $this->event_manage_model->modify_info($post_arr, $id);
+
+		$module_uri = $base_url.'fuel/event/edit?id='.$id;  
+		
+		if($success)
+		{
+			$this->comm->plu_redirect($module_uri, 0, "修改成功");
+			die();
+		}
+		else
+		{
+			$this->comm->plu_redirect($module_uri, 0, "修改失敗");
+			die();
+		}
+		return;
+	} 
+
 
 	function detail_lists($event_id)
 	{

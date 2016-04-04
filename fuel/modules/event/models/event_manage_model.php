@@ -227,6 +227,30 @@ COUNT(action) total_count
 		return;
 	} 
 
+	public function modify_info($data, $id)
+	{
+		$sql = @"UPDATE mod_events SET  
+									  introduction=?,  
+									  rule=?,  
+									  rights=? 
+									  WHERE id=?";
+		$para = array( 
+				$data['introduction'],
+				$data['rule'],
+				$data['rights'],
+				$id
+			);
+
+		$success = $this->db->query($sql, $para);
+
+		if($success)
+		{
+			return true;
+		}
+
+		return;
+	} 
+
 	public function get_event_detail($id)
 	{
 		$sql = @"SELECT * FROM mod_events WHERE id=? ";
